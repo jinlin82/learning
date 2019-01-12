@@ -246,14 +246,21 @@ Software tools for revision control are essential for the organization of multi-
 ** Github
    1. 注册，网页操作
    2. Github 程序
-   3. 合作者(Collaborator)步骤：
+   3. 把本地文件夹用git控制并push到Github步骤：
+      - 使用Github网页操作：网页中建立项目，把需要版本控制的文件上传到项目中，然后再把项目clone到文件夹中。
+      - 使用Magit操作：
+	1. 切换到文件夹或打开文件夹中到文件，运行 magit-init
+	2. 选择需要 stage 到 文件，不要选择大文件，不需要监控的文件
+	3. commit, 本地库已被 git 版本控制
+	4. 运行 magithub-create 把 local repo push 到 github，按提示操作即可
+   4. 合作者(Collaborator)步骤：
       1. repository owner 向合作者发出合作邀请(repository setting)
       2. 被邀请者在网页 (https://github.com/username/reponame/invitations) 接受邀请，成为合作者
       3. 合作者 clone owner's 的repository 到 本地 repository
       4. 修改(Modified) -> 保存(save) -> 登记(stage) -> 提交(commit) -> 上传(push)
       5. 重新开始工作时，下拉(pull)最新版本
       6. 如果push的时候，remote 已经修改，两个修改不一致则会产生冲突，这时则需重新 pull 并 手工解决冲突后再按push步骤提交。
-   4. 贡献者(Contributor)步骤：
+   5. 贡献者(Contributor)步骤：
       1. 贡献者 Fork：网页操作，程序操作，Emacs-Magithub 操作
       2. 贡献者 Clone 自己的fork 到本地 repository
       3. 贡献者修改后 push 到贡献者的fork
@@ -263,7 +270,7 @@ Software tools for revision control are essential for the organization of multi-
    1. helm-github-stars
    2. github-stars-list
    3. Magit
-   4. Magithub
+   4. Magithub: Magit 配合 github 使用
 ** lme simulation code
 
 #+BEGIN_SRC R
