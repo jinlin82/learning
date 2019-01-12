@@ -1,0 +1,405 @@
+* Econometrics
+** 虚拟变量
+*** 虚拟变量
+     - 虚拟变量是指取值为 0 和 1 的变量。
+     - 虚拟变量中 1 的含义是代表某一分类，0 代表其他。
+     - 在有截距项的线性回归模型中，引入的虚拟变量个数不能等于分类的个数，否则会
+       和截距项构成完全的多重共线性，导致模型无法估计。这时引入虚拟变量的个数应
+       为分类个数减 1 。
+     - 在不含截距项的回归模型中，虚拟变量的个数等于分类数。
+
+*** 虚拟变量的作用
+    - 变截距模型
+    - 变斜率模型
+    - 分段回归模型
+
+*** 分段线性回归(piecewise linear regression, segmented linear regression)
+    - is a method in regression analysis in which the independent variable is
+      partitioned into intervals and a separate line segment is fit to each
+      interval.
+    - Segmented regression analysis can also be performed on multivariate data
+      by partitioning the various independent variables.
+    - Segmented regression is useful when the independent variables, clustered
+      into different groups, exhibit different relationships between the
+      variables in these regions.
+    - The boundaries between the segments are breakpoints.
+
+** 分布滞后模型(distributed-lag model)
+*** 模型定义
+    - 分布滞后模型：在时间序列回归模型中，如果回归模型不仅包括解释变量，还包括解
+      释变量的滞后项，如
+      \[Y_{t}=\alpha+\beta_{0}X_{t}+\beta_{1}X_{t-1}+\beta_{2}X_{t-2}+u_{t}\]
+    - 根据滞后长度的取值，可以分为有限分布滞后模型和无限分布滞后模型
+    - 分布滞后模型中回归系数的意义
+*** 模型估计存在的问题
+    - 多重共线性问题
+    - 损失自由度问题
+    - 最大滞后期 $k$ 的确定问题
+*** 估计方法I: 经验加权法
+*** 估计方法II: 阿尔蒙多项式法
+** 自回归模型(autoregressive model)
+*** 模型定义
+    - 自回归模型：时间序列回归模型中，模型解释变量中包含有因变量的一个或多个滞后
+      项，又称动态模型(dynamic models)，如
+      \[Y_{t}=\alpha+\beta X_{t}+\gamma Y_{t-1}+u_{t}\]
+    - 滞后项的阶数需要确定
+*** 可以转化为自回归模型的模型
+    - 库伊克模型
+    - 自适应预期模型
+    - 部分调整模型
+*** 自回归模型的估计
+    - 广义最小二乘法
+    - 工具变量法
+*** 自回归模型中序列相关检验： Durbin $h$ 检验
+** 格兰杰因果关系检验 (Granger Causality)
+*** 背景
+    - 回归分析反映的是变量之间的相关关系，不是变量之间的因果关系。
+    - Clive Granger 认为经济上的因果关系可以通过测度一个时间序列对另一个时间序列
+      未来值的预测能力来反映。
+    - 什么是因果关系是一个哲学问题。一些经济计量学家认为Granger检验反映的“预测
+      因果”。
+
+*** 定义
+    - 时间序列 $X$ 称为 时间序列 $Y$ 的Granger原因，当 $X$ 的滞后值(和 $Y$ 本身
+      的滞后值一起)对 $Y$ 的未来值有统计显著性的影响，这些显著性可以通过 $t$ 检
+      验或 $F$ 检验来验证。
+    - Granger基于以下两条准则定义因果关系的：
+      1. 原因先于结果发生。
+      2. 原因中含有结果未来值的独一无二的信息。
+*** 方法
+    - Any particular lagged value of one of the variables is retained in the
+      regression if (1) it is significant according to a t-test, and (2) it and
+      the other lagged values of the variable jointly add explanatory power to
+      the model according to an F-test. Then the null hypothesis of no Granger
+      causality is not rejected if and only if no lagged values of an
+      explanatory variable have been retained in the regression.
+    - 公式表示：
+*** 注意事项
+    - If a time series is a Stationary process, the test is performed using the
+      level values of two (or more) variables.
+    - If the variables are non-stationary, then the test is done using first
+      (or higher) differences.
+    - The number of lags to be included is usually chosen using an information
+      criterion, such as the Akaike information criterion or the Schwarz
+      information criterion.
+    - In practice it may be found that neither variable Granger-causes the
+      other, or that each of the two variables Granger-causes the other.
+*** 实现方法
+    - STATA 中的实现方法
+      1. 分别估计两个模型，然后根据 $F$ 统计量的定义计算统计量的值并进行检验。
+      2. 估计无约束模型，利用 =test= 命令检验系数整体是否为0。
+      3. 下载安装 =gcause= 命令，利用 =gcause= 命令检验
+	 - =ssc install gcause=
+	 - =gcause y x, lag(3)=
+*** 例子
+** 联立方程模型
+* Unorganized
+** 事件分析法
+*** 概念
+    1. An Event study is a statistical method to assess the impact of an event
+       on the value of a firm.
+       1. For example, the announcement of a merger between two business
+          entities can be analyzed to see whether investors believe the merger
+          will create or destroy value.
+    2. The basic idea is to find the abnormal return attributable to the event
+       being studied by adjusting for the return that stems from the price
+       fluctuation of the market as a whole.
+    3. Event studies are thus common to various research areas, such as
+       accounting and finance, management, economics, marketing, information
+       technology, law, and political science.
+    4. the breadth of the studied event types:
+       1. economy-wide events (i.e., market shocks, such as regulatory changes,
+          or catastrophic events)
+       2. corporate events, such as mergers and acquisitions, earnings
+          announcements, debt or equity issues, corporate reorganisations,
+          investment decisions and corporate social responsibility
+*** 实证方法
+    1. Based on an *estimation window* prior to the analyzed event, the method
+       estimates what the normal stock returns of the affected firm(s) should
+       be at the day of the event and several days prior and after the event
+       (i.e., during the *event window* ). Thereafter, the method deducts this
+       'normal returns' from the 'actual returns' to receive 'abnormal returns'
+       attributed to the event.
+    2. may differ with respect to their specification of normal returns. The
+       most common model for normal returns is the 'market model'.
+    3.  Following this model, the analysis implies to use an estimation window
+        (typically sized 120 days) prior to the event to derive the typical
+        relationship between the firm's stock and a reference index through a
+        regression analysis. Based on the regression coefficients, the normal
+        returns are then projected and used to calculate the abnormal
+        returns. Alternative models for the normal returns include the CAPM
+        model, or more simplistic approaches such as mean returns.
+*** 异常收益率计算步骤
+    - For the most common model, the 'market model', the steps are as follows:
+      1. Retrieve and match time series of financial returns of the focal firm's
+         stock and its reference index.
+      2. For each event, identify the sequences of firm and market returns that
+         need to be included in the estimation window.
+      3. Using regression analysis, calculate the alpha, beta and sigma
+         coefficients that explicate the typical relationship between the stock
+         and the reference index.
+      4. With these three parameters, predict the 'normal returns' for all days
+         of the event window.
+      5. Deducting these 'normal returns' from the 'actual returns' gives you
+         the 'abnormal returns' which are the metrics of interest.
+*** 异常收益率检验
+    1. The most common test, the t-test, divides the abnormal returns through
+       the root mean square error of the regression. Resulting t-values need
+       then to be compared with the critical values of the Student's
+       t-distribution.
+*** 软件实现
+    1. Single event studies can easily be implemented with MS Excel
+    2. event studies covering multiple events need to be built using statistical
+       software packages (e.g., STATA, Matlab).
+    3. Besides of these multi-use tools, there are solutions tailored to
+       conducting event study analyses (e.g., Eventus, Event Study Metrics,
+       EventStudyTools).
+** Stratified sampling vs. Quota sampling
+   - Quota sampling is a method for selecting survey participants that is a
+     non-probabilistic version of stratified sampling.
+
+
+
+    [[file:d:/Works/2013.7-%E4%B8%AD%E5%8D%97%E8%B4%A2%E7%BB%8F%E6%94%BF%E6%B3%95%E5%A4%A7%E5%AD%A6%E7%BB%9F%E6%95%B0%E5%AD%A6%E9%99%A2/2015%E5%B9%B401%E6%9C%8809%E6%97%A5--%E5%BB%BA%E8%AE%BE%E5%85%A8%E5%9B%BD%E4%B8%AD%E5%B0%8F%E6%8A%95%E8%B5%84%E8%80%85%E8%81%94%E7%BB%9C%E5%B9%B3%E5%8F%B0/draft/draft.org::*%E6%8A%BD%E6%A0%B7%E6%96%B9%E6%B3%95][抽样方法]]
+** Gauss-Newton method
+
+
+  [[file:d:/Works/Teaching/2015%E5%B9%B4%E4%B8%8A%E5%8D%8A%E5%B9%B4--%E7%BB%8F%E6%B5%8E%E9%A2%84%E6%B5%8B%E4%B8%8E%E5%86%B3%E7%AD%96/%E8%AF%BE%E4%BB%B6/%E7%AC%AC3%E7%AB%A0--%E5%9B%9E%E5%BD%92%E9%A2%84%E6%B5%8B%E6%B3%95/chap3.org::*%E6%B3%A8%E6%84%8F%E7%9A%84%E9%97%AE%E9%A2%98][注意的问题]]
+** 如何把 html source 转化为 org mode
+*** 目的
+    - wikipedia里面网页的source代码里面有公式的tex代码，不用输入 tex 公式
+*** 方法
+    - 删除所有的 html tags， 除了包含tex公式的部分
+** Python
+*** IPython + Emacs
+
+** 基于联合分析的市场定价策略
+*** 均匀正交设计
+*** 打分效用
+    1. 求平均值得到效用值
+*** 联合分析（Conjoint Analysis）
+    - online conjoint analysis (Sawtooth software)
+    - Sawtooth Software, Inc. is a computer software company based in Orem,
+      Utah, USA. The company provides survey software tools, and specializes in
+      conjoint analysis.
+**** 输入
+     1. 属性
+     2. 水平：互斥；属性水平应具有明确和清晰的含义
+     3. 受访者
+     4. 先验信息
+**** 输出
+     1. 效用值：等距数据，可加但不可比，但0没有绝对值的意义
+     2. 重要性：等比数据
+     3. 市场模拟：模拟竞争市场的情景
+**** 种类
+     1. 联合价值分析(CVA)
+     2. 自适应联合分析(ACA)
+     3. 基于选择的联合分析(CBC)
+     4. 自适应的基于选择的联合分析(ACBC)
+     5. 菜单形式的联合分析(MBC)
+*** 基于选择的联合分析(CBC)(离散选择模型，二分类因变量模型)
+**** effect-coding
+
+*** 问题
+    1. 实际选择与填写问卷有较大的偏差
+    2. 贝叶斯估计方法(why?)与极大似然估计的差异
+    3. 抽样问题
+    4. 系数的显著性
+    5. 实验设计在市场研究中的作用
+** interpolate, extrapolate, imputation
+    1. interpolate: 插值
+    2. extrapolate: 外推
+    3. imputation: 插补(针对缺失值)
+** Markov chain
+   1. what is Markov chain
+   2. how to simulate Markov chain
+* Git
+** 版本控制(version control)
+*** 概念
+A component of software configuration management, version control, also known as
+revision control or source control, is the management of changes to
+documents, computer programs, large web sites, and other collections of
+information. Changes are usually identified by a number or letter code, termed
+the "revision number," "revision level," or simply "revision." For example, an
+initial set of files is "revision 1." When the first change is made, the
+resulting set is "revision 2," and so on. Each revision is associated with a
+timestamp and the person making the change. Revisions can be compared, restored,
+and with some types of files, merged. The need for a logical way to organize and
+control revisions has existed for almost as long as writing has existed, but
+revision control became much more important, and complicated, when the era of
+computing began. The numbering of book editions and of specification revisions
+are examples that date back to the print-only era. Today, the most capable (as
+well as complex) revision control systems are those used in software
+development, where a team of people may change the same files. 
+更多参见维基百科网站：
+[[https://en.wikipedia.org/wiki/Version_control]]
+*** 版本控制软件
+Software tools for revision control are essential for the organization of multi-developer projects.
+*** svn
+*** git
+*** Magit
+*** Github
+** Git Basics
+   1. 设置环境变量
+   2. git 原理
+   3. git 基本命令
+** Github
+   1. 注册，网页操作
+   2. Github 程序
+   3. 合作者(Collaborator)步骤：
+      1. repository owner 向合作者发出合作邀请(repository setting)
+      2. 被邀请者在网页 (https://github.com/username/reponame/invitations) 接受邀请，成为合作者
+      3. 合作者 clone owner's 的repository 到 本地 repository
+      4. 修改(Modified) -> 保存(save) -> 登记(stage) -> 提交(commit) -> 上传(push)
+      5. 重新开始工作时，下拉(pull)最新版本
+      6. 如果push的时候，remote 已经修改，两个修改不一致则会产生冲突，这时则需重新 pull 并 手工解决冲突后再按push步骤提交。
+   4. 贡献者(Contributor)步骤：
+      1. 贡献者 Fork：网页操作，程序操作，Emacs-Magithub 操作
+      2. 贡献者 Clone 自己的fork 到本地 repository
+      3. 贡献者修改后 push 到贡献者的fork
+      4. 向 owner 提交 pull request
+      5. 贡献者 sync with owner's master [[https://stackoverflow.com/questions/7244321/how-do-i-update-a-github-forked-repository]]
+** Emacs + Git
+   1. helm-github-stars
+   2. github-stars-list
+** lme simulation code
+
+#+BEGIN_SRC R
+rm(list = ls())
+set.seed(2345)
+
+N <- 30
+unit.df <- data.frame(unit = c(1:N), a = rnorm(N))
+
+head(unit.df, 3)
+unit.df <-  within(unit.df, {
+  E.alpha.given.a <-  1 - 0.15 * a
+  E.beta.given.a <-  3 + 0.3 * a
+})
+head(unit.df, 3)
+
+library(mvtnorm)
+q = 0.2
+r = 0.9
+s = 0.5
+cov.matrix <- matrix(c(q^2, r * q * s, r * q * s, s^2), nrow = 2,
+                     byrow = TRUE)
+random.effects <- rmvnorm(N, mean = c(0, 0), sigma = cov.matrix)
+unit.df$alpha <- unit.df$E.alpha.given.a + random.effects[, 1]
+unit.df$beta <- unit.df$E.beta.given.a + random.effects[, 2]
+head(unit.df, 3)
+
+J <- 30
+M = J * N  #Total number of observations
+x.grid = seq(-4, 4, by = 8/J)[0:30]
+
+within.unit.df <-  data.frame(unit = sort(rep(c(1:N), J)), j = rep(c(1:J),
+                              N), x =rep(x.grid, N))
+flat.df = merge(unit.df, within.unit.df)
+
+flat.df <-  within(flat.df, y <-  alpha + x * beta + 0.75 * rnorm(n = M))
+simple.df <-  flat.df[, c("unit", "a", "x", "y")]
+head(simple.df, 3)
+
+library(lme4)
+my.lmer <-  lmer(y ~ x + (1 + x | unit), data = simple.df)
+cat("AIC =", AIC(my.lmer))
+my.lmer <-  lmer(y ~ x + a + x * a + (1 + x | unit), data = simple.df)
+summary(my.lmer) 
+#+END_SRC
+** MSGARCH
+
+#+BEGIN_SRC R
+  library(MSGARCH)
+  spec1 <- CreateSpec(distribution.spec = list(distribution = c("norm", "norm")),
+                      switch.spec = list(do.mix=TRUE))
+  summary(spec1)
+  data("dem2gbp", package = "MSGARCH")
+  fit.ml <- FitML(spec = spec1, data=dem2gbp)
+  summary(fit.ml)
+  
+#+END_SRC
+* Export Configuration 					   :noexport:ARCHIVE:
+# +LATEX_CLASS_OPTIONS: [11pt,xcolor=dvipsnames,aspectratio=43,hyperref={bookmarksdepth=4}]
+#+LATEX_CLASS_OPTIONS: [UTF8,a4paper,12pt]{ctexart}  % Latex 去掉上面的语句，加上本语句
+#+LaTeX_HEADER_EXTRA: % -------------------------- Document Title -----------------------------
+#+LATEX_HEADER_EXTRA: \usepackage{titling}
+#+LATEX_HEADER_EXTRA: \pretitle{\begin{center}\vskip -1em\Large\textbf}
+#+LATEX_HEADER_EXTRA: \posttitle{\thanks{\textbf{基金项目}：中南财经政法大学基本科研业务费青年教师创新项目（20132049）；中南财经政法大学2013年实验教学项目《统计学实验课程动态图示项目建设》}\par\end{center}}
+#+LATEX_HEADER_EXTRA: \preauthor{\begin{center}\CJKfamily{kai}
+#+LATEX_HEADER_EXTRA: \lineskip -1em%
+#+LATEX_HEADER_EXTRA: \begin{tabular}[t]{c}}
+#+LATEX_HEADER_EXTRA: \postauthor{\end{tabular}\par\end{center}}
+#+LATEX_HEADER_EXTRA: \predate{\begin{center}\CJKfamily{kai}\vskip -1.2em}
+#+LATEX_HEADER_EXTRA: \postdate{\par\end{center}\vskip -2em}
+#+LaTeX_HEADER_EXTRA: % ------------------------Chapter Section Title-------------------------
+#+LaTeX_HEADER_EXTRA: \usepackage{titlesec}
+#+LaTeX_HEADER_EXTRA: \titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+#+LaTeX_HEADER_EXTRA: \titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{0.5em}{}
+#+LaTeX_HEADER_EXTRA: \titlespacing{\section}{0pt}{1ex plus 1ex minus .2ex}{1ex plus 1ex minus .2ex}
+#+LaTeX_HEADER_EXTRA: \titlespacing{\subsection}{0pt}{0.5ex plus 1ex minus .2ex}{0.5ex plus 1ex minus .2ex}
+#+LaTeX_HEADER_EXTRA: % ------------------------Figure and Table Caption---------------------
+#+LaTeX_HEADER_EXTRA: \makeatletter                        % 图表标题格式设置
+#+LaTeX_HEADER_EXTRA: \renewcommand{\fnum@table}[1]{\small \bfseries\textcolor{Violet}{\tablename\thetable~~}}
+#+LaTeX_HEADER_EXTRA: \renewcommand{\fnum@figure}[1]{\small \CJKfamily{hei} \textcolor{Violet}{\figurename\thefigure~~}}
+#+LaTeX_HEADER_EXTRA: \makeatother
+#+LaTeX_HEADER_EXTRA: \renewcommand{\thefigure}{\arabic{figure}}
+#+LaTeX_HEADER_EXTRA: \renewcommand{\thetable}{\arabic{table}}
+#+LaTeX_HEADER_EXTRA: \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+#+LaTeX_HEADER_EXTRA: % -----------------------------Ref and Bib----------------------------
+#+LaTeX_HEADER_EXTRA: \usepackage[super,square,sort&compress]{natbib}      % 参数代表：数字和排序与压缩
+#+LaTeX_HEADER_EXTRA: \setlength{\bibsep}{0ex}                             % 参考文献中行距缩小
+
+#+LaTeX_HEADER_EXTRA: \usepackage[top=2cm,bottom=2cm,left=3cm,right=3cm]{geometry}
+#+LaTeX_HEADER_EXTRA: \sloppy
+#+LaTeX_HEADER_EXTRA: \linespread{1.1}                    % 设置行距
+#+LaTeX_HEADER_EXTRA: \setlength{\parindent}{24pt}        % 段落缩进
+#+LaTeX_HEADER_EXTRA: \setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+#+LaTeX_HEADER_EXTRA: \pagestyle {plain}                  % 去掉页眉
+#+LaTeX_HEADER_EXTRA: \usepackage{enumitem}               % 设置item间距
+#+LaTeX_HEADER_EXTRA: \setitemize[1]{itemsep=0pt,partopsep=0pt,parsep=\parskip,topsep=5pt}  % 设置item间距
+#+LaTeX_HEADER_EXTRA: \setenumerate[1]{itemsep=0pt,partopsep=0pt,parsep=\parskip,topsep=5pt} % 设置枚举间距
+# +LaTeX_HEADER_EXTRA: \floatsetup[table]{style=plain,capposition=top,font=small}% 在.emacs文件中加载的floatsetup包取代了float包
+# +LATEX_HEADER: \author{\CJKfamily{kai} 金\quad 林 \\ \normalsize \CJKfamily{kai} （中南财经政法大学\, 统计与数学学院\, 湖北\, 武汉\, 430073）}
+#+LATEX_HEADER: \author{\CJKfamily{kai} 金 \enspace 林 \\ \CJKfamily{kai} 中南财经政法大学统计系 \\ jinlin82@gmail.com}
+
+
+#+BEAMER_HEADER: \usetheme{default}
+#+BEAMER_HEADER: \useinnertheme[shadow]{rounded}
+#+BEAMER_HEADER: \useoutertheme{infolines}
+#+BEAMER_HEADER: \usecolortheme{seahorse}
+#+BEAMER_HEADER: \setbeamercolor{frametitle}{fg=Blue, bg=white}
+#+BEAMER_HEADER: \setbeamercolor{titlelike}{parent=structure}
+#+BEAMER_HEADER: \setbeamertemplate{caption}[numbered]
+#+BEAMER_HEADER: \setbeamertemplate{section in toc shaded}[default][50]
+#+BEAMER_HEADER: \setbeamertemplate{subsection in toc shaded}[default][20]
+# +BEAMER_HEADER: \setbeamertemplate{section in toc}[circle]
+#+BEAMER_HEADER: \setbeamertemplate{subsection in toc}[square]
+#+BEAMER_HEADER: \logo{\includegraphics[height=0.6cm,width=0.6cm]{znufelogo.jpg}}
+#+BEAMER_HEADER: \setbeamercovered{transparent}
+#+BEAMER_HEADER: \setCJKmainfont[BoldFont={* Bold}]{Microsoft YaHei}
+#+BEAMER_HEADER: \usefonttheme[onlylarge]{structuresmallcapsserif}
+#+BEAMER_HEADER: \usefonttheme[onlymath]{serif}
+#+BEAMER_HEADER: \setbeamertemplate{frametitle}{\bfseries\insertframetitle\par\vskip-6pt}
+
+#+BEAMER_HEADER: \AtBeginSection[]
+#+BEAMER_HEADER: {
+#+BEAMER_HEADER: \setcounter{tocdepth}{2}
+#+BEAMER_HEADER: \frame[shrink=5]{\tableofcontents[currentsection, hideothersubsections]}
+#+BEAMER_HEADER: }
+#+BEAMER_HEADER: \AtBeginSubsection[] % Do nothing for \subsection*
+#+BEAMER_HEADER: {
+#+BEAMER_HEADER: \begin{frame}<beamer>
+#+BEAMER_HEADER: \frametitle{}
+#+BEAMER_HEADER: \Large \tableofcontents[currentsubsection,sectionstyle=hide/hide]
+#+BEAMER_HEADER: \end{frame}
+#+BEAMER_HEADER: }
+#+BEAMER_HEADER: \setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+#+BEAMER_HEADER: \author[金\; 林(中南财经政法大学统计系)]{\CJKfamily{kai} 金 \enspace 林 \\ 中南财经政法大学统计系 \\ jinlin82@gmail.com}
+
+#+AUTHOR:  金 \nbsp 林 \\ 中南财经政法大学统计系 \\ jinlin82@gmail.com
+#+EMAIL: jinlin82@gmail.com
+# +DATE: 2014年12月1日
+#+OPTIONS: H:3 toc:nil num:3 LaTeX:nil ^:{} email:nil tex:t author:nil arch:nil DATE:t
+#+TITLE: 学习笔记
+
