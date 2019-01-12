@@ -262,6 +262,8 @@ Software tools for revision control are essential for the organization of multi-
 ** Emacs + Git
    1. helm-github-stars
    2. github-stars-list
+   3. Magit
+   4. Magithub
 ** lme simulation code
 
 #+BEGIN_SRC R
