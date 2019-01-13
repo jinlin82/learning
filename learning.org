@@ -213,6 +213,12 @@
 ** Markov chain
    1. what is Markov chain
    2. how to simulate Markov chain
+** latex listing 包中 R 代码 多个 # 出错
+   1. org文件R代码修改 org.el 中 lstset 里面的 texcl= true
+   2. Rmd文件R代码修改 default-1.17.0.2.tex 中lstset 里面的 texcl= true
+ 
+ 
+  [[file:c:/Works/Working_Paper/2019-01-shibor-msgarch/ms-garch.Rmd][file:c:/Works/Working_Paper/2019-01-shibor-msgarch/ms-garch.Rmd]]
 * Git
 ** 版本控制(version control)
 *** 概念
@@ -248,7 +254,7 @@ Software tools for revision control are essential for the organization of multi-
    2. Github 程序
    3. 把本地文件夹用git控制并push到Github步骤：
       1. 使用Github网页操作：网页中建立项目，把需要版本控制的文件上传到项目中，然后再把项目clone到文件夹中。
-      2. 使用git命令操作
+      2. 使用git命令操作,可以在Terminal运行git命令.
       3. 使用Magit操作：
 	 1. 切换到文件夹或打开文件夹中到文件，运行 magit-init
 	 2. 选择需要 stage 到 文件，不要选择大文件，不需要监控的文件
@@ -272,9 +278,11 @@ Software tools for revision control are essential for the organization of multi-
    2. github-stars-list
    3. Magit
    4. Magithub: Magit 配合 github 使用
+* 代码
 ** lme simulation code
 
 #+BEGIN_SRC R
+## prepare
 rm(list = ls())
 set.seed(2345)
 
