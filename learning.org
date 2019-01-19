@@ -219,6 +219,123 @@
  
  
   [[file:c:/Works/Working_Paper/2019-01-shibor-msgarch/ms-garch.Rmd][file:c:/Works/Working_Paper/2019-01-shibor-msgarch/ms-garch.Rmd]]
+** Markdown 中文换行输出后有空格问题解决方法
+   - 这是很长时间以来都存在的一个问题。
+   - 现在可以通过pandoc中的 east_asian_line_breaks 这个 extensions 来解决。
+   - 可以在rmd的yaml部分添加
+word_document: 
+    md_extensions: +east_asian_line_breaks
+** TODO Rmarkdown docx 输出模板配置（需要更新）
+   1. 配置 word 模板文件，具体步骤见 [[https://rmarkdown.rstudio.com/articles_docx.html]]
+   2. 其中需要配置样式的格式，比较复杂的是标题自动编号的配置，需要用到多级列表，具体为
+      1. 图标 多级列表 - 定义新的多级列表， 点击下面的更多，设置相关，其中关键在于 *将级别链接到样式*
+   3. 还需要配置公式，图，表等的格式
+   4. 将配置好的word文档放在rmd文件夹中，配置rmd文件yaml header， 在word输出选项下增加： reference_docx: word-styles-01.docx
+** R 更新步骤：
+   1. 下载并安装新版本R安装文件（注意：一般不要下载最新版本，因为可能有些包没有更新不兼容）
+   2. 把旧版本中 library 复制到新版本 library 中，注意 不要替换
+   3. update 所有 packages, 可能需要几次
+   4. 把initial file.(etc文件夹)拷入新版中install.packages(file.choose(), repos = NULL, type="binary")
+   5. 更新环境变量名
+** R 中修改package的源代码并重新安装的方法
+   1. 安装 devtools 包
+   2. 下载需要修改包的源代码压缩包，解压修改代码
+   3. 利用 devtools 包里面的 ~load_all~ 函数 和 ~remove.packages~ 函数进行调试效果
+   4. 利用 ~R CMD INSTALL --build packagename~ 把源代码文件夹build为 Windows Binary 文件
+   5. 该Binary文件可使用 ~install.packages(file.choose(), repos = NULL,
+      type="binary")~ ， 安装之前可能需要先remove该package并重启R
+** Rmarkdown 中交叉引用解决方法
+   1. 参考文献使用 pandoc-citeproc
+   2. 公式、图、表和章节交叉引用有两种解决方案
+      1. 使用 pandoc-crossref: 优点功能强大，可定制性强，引用语法简单，缺点是图只支持 markdown，
+         不支持Rmarkdown，也即Rmarkdown对图片的处理不是生成原始markdown，所以支持不好
+      2. 使用 bookdown：支持Rmarkdown，缺点是定制性差，引用语法相对繁琐一点
+   3. 目前建议: 公式使用 pandoc-crossref, 图和表使用bookdown，章节目前由于没有使用经验待定
+   4. bookdown 中引用的问题：
+      1. 都是带有章节的引用，例如 图 3.2 ，图表编号后有一个冒号，与目前中文习惯不一致
+      2. 解决方法：修改 bookdown 源代码，并重新 build 并安装，具体方法见 R 中修改package的源代码并重新安装的方法
+      3. html.R文件具体修改的代码（可以在bookdown源代码中html.R通过查找 "###" 定位），具体代码为：
+#+BEGIN_SRC R :eval no
+seq_numbering = TRUE, 
+  ### 增加了引用格式选项 seq_numbering=T，统一输出，=F 按章输出
+x = resolve_refs_html(x, global = seq_numbering)  ### 增加了引用格式选项 seq_numbering=T，统一输出，=F 按章输出
+paste0(label_prefix(type), num, '&nbsp;&nbsp;&nbsp;')  #### 增加 表数字 后面的空格
+#+END_SRC
+** 使用bookdown交叉引用步骤
+   1. 安装修改后的 bookdown ，
+   2. 增加 _bookdown.yaml，修改英文 Figure Table 为图和表
+   3. 修改Rmd文件的header为：
+
+#+BEGIN_SRC yaml :eval no
+---
+title: "基于MS-GARCH模型的上海银行同业拆借利率波动性分析"
+author: "Jin"
+date: "2019-01-14"
+output:
+  bookdown::html_document2:
+    number_sections: true
+    seq_numbering: true
+    fig_caption: true
+    highlight: haddock
+    theme: null
+    md_extensions: +east_asian_line_breaks
+    keep_md: true
+    toc: false
+    pandoc_args: ["--filter", "pandoc-crossref", "-M", "eqnPrefix="]
+  pdf_document:
+    keep_tex: yes
+    latex_engine: xelatex
+    md_extensions: +east_asian_line_breaks
+    pandoc_args: ["--listing", "--filter", "pandoc-crossref"]
+  bookdown::word_document2:
+    fig_caption: true
+    reference_docx: abc.docx
+    md_extensions: +east_asian_line_breaks
+    pandoc_args: ["--filter", "pandoc-crossref"]
+css: markdown.css
+autoEqnLabels: true
+eqnPrefixTemplate: ($$i$$)
+linkReferences: true
+bibliography: msgarch.bib
+csl: chinese-gb7714-2005-numeric.csl
+link-citations: true
+---
+#+END_SRC
+
+
+* 参考文献管理
+** Bibtex
+
+** 参考文献管理软件 Jabref
+*** 功能
+    1. 能够导入其他格式参考文献文件为bib
+    2. 自动生成 key
+    3. 排序，查看等
+*** 安装
+    1. 保证电脑上存在 Java 虚拟机 JRE 1.8 版本以上，移动版时设置 java 环境变量
+    2. 可 portable 使用
+*** 知网文献导入步骤
+    1. 知网查找文献后导出为 Endnote 格式（.txt 文件）
+    2. Jabref Import 选择默认(所有格式)
+    3. remove duplicates
+    4. 选择所有条目， 自动生成 bibtex key, 保存bib文件
+
+** Rmd 中参考文献管理
+   1. 原理为 pandoc-citeproc
+   2. 准备好 bib 文件
+   3. 在 yaml header 中加入：
+bibliography: msgarch.bib
+
+csl: chinese-gb7714-2005-numeric.csl
+   3. 文件结尾加入：
+#参考文献
+
+[//]: # (\bibliography{msgarch})
+   4. 正文中通过[@bibtexkey]引用
+
+** org-mode 中参考文献管理
+
+
 * Git
 ** 版本控制(version control)
 *** 概念
@@ -246,7 +363,7 @@ Software tools for revision control are essential for the organization of multi-
 *** Magit
 *** Github
 ** Git Basics
-   1. 设置环境变量
+   1. 设置环境变量[[cite:Gompertz1825]]
    2. git 原理
    3. git 基本命令
 ** Github
@@ -337,7 +454,17 @@ summary(my.lmer)
   summary(fit.ml)
   
 #+END_SRC
+
+
+
+
+#+LATEX: \bibliographystyle{GBT7714-2005N}   % 参考文献style,中文的排序在fixbbl的选项中
+# use this comment line to fool org-ref find bib file +BIBLIOGRAPHY: Gompertz.bib  
+#+BIBLIOGRAPHY: Gompertz unsrt option:-nobibsource option:-i option:-nokeywords option:-noabstract limit:t    
+# +BIBLIOGRAPHY: Gompertz GBT7714-2005N option:-nobibsource option:-i option:-nokeywords option:-noabstract limit:t
+
 * Export Configuration 					   :noexport:ARCHIVE:
+# +LATEX_CLASS_OPTIONS: % 版本 2019-1-14
 # +LATEX_CLASS_OPTIONS: [11pt,xcolor=dvipsnames,aspectratio=43,hyperref={bookmarksdepth=4}]
 #+LATEX_CLASS_OPTIONS: [UTF8,a4paper,12pt]{ctexart}  % Latex 去掉上面的语句，加上本语句
 #+LaTeX_HEADER_EXTRA: % -------------------------- Document Title -----------------------------
@@ -345,10 +472,10 @@ summary(my.lmer)
 #+LATEX_HEADER_EXTRA: \pretitle{\begin{center}\vskip -1em\Large\textbf}
 #+LATEX_HEADER_EXTRA: \posttitle{\thanks{\textbf{基金项目}：中南财经政法大学基本科研业务费青年教师创新项目（20132049）；中南财经政法大学2013年实验教学项目《统计学实验课程动态图示项目建设》}\par\end{center}}
 #+LATEX_HEADER_EXTRA: \preauthor{\begin{center}\CJKfamily{kai}
-#+LATEX_HEADER_EXTRA: \lineskip -1em%
+#+LATEX_HEADER_EXTRA: \lineskip -0.5em%
 #+LATEX_HEADER_EXTRA: \begin{tabular}[t]{c}}
 #+LATEX_HEADER_EXTRA: \postauthor{\end{tabular}\par\end{center}}
-#+LATEX_HEADER_EXTRA: \predate{\begin{center}\CJKfamily{kai}\vskip -1.2em}
+#+LATEX_HEADER_EXTRA: \predate{\begin{center}\CJKfamily{kai}\vskip -1em}
 #+LATEX_HEADER_EXTRA: \postdate{\par\end{center}\vskip -2em}
 #+LaTeX_HEADER_EXTRA: % ------------------------Chapter Section Title-------------------------
 #+LaTeX_HEADER_EXTRA: \usepackage{titlesec}
@@ -368,18 +495,17 @@ summary(my.lmer)
 #+LaTeX_HEADER_EXTRA: \usepackage[super,square,sort&compress]{natbib}      % 参数代表：数字和排序与压缩
 #+LaTeX_HEADER_EXTRA: \setlength{\bibsep}{0ex}                             % 参考文献中行距缩小
 
-#+LaTeX_HEADER_EXTRA: \usepackage[top=2cm,bottom=2cm,left=3cm,right=3cm]{geometry}
+#+LaTeX_HEADER_EXTRA: \usepackage[top=2cm,bottom=2cm,left=2.5cm,right=2.5cm]{geometry}
 #+LaTeX_HEADER_EXTRA: \sloppy
-#+LaTeX_HEADER_EXTRA: \linespread{1.1}                    % 设置行距
+#+LaTeX_HEADER_EXTRA: \linespread{1.2}                    % 设置行距
 #+LaTeX_HEADER_EXTRA: \setlength{\parindent}{24pt}        % 段落缩进
 #+LaTeX_HEADER_EXTRA: \setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
 #+LaTeX_HEADER_EXTRA: \pagestyle {plain}                  % 去掉页眉
-#+LaTeX_HEADER_EXTRA: \usepackage{enumitem}               % 设置item间距
-#+LaTeX_HEADER_EXTRA: \setitemize[1]{itemsep=0pt,partopsep=0pt,parsep=\parskip,topsep=5pt}  % 设置item间距
-#+LaTeX_HEADER_EXTRA: \setenumerate[1]{itemsep=0pt,partopsep=0pt,parsep=\parskip,topsep=5pt} % 设置枚举间距
 # +LaTeX_HEADER_EXTRA: \floatsetup[table]{style=plain,capposition=top,font=small}% 在.emacs文件中加载的floatsetup包取代了float包
+
 # +LATEX_HEADER: \author{\CJKfamily{kai} 金\quad 林 \\ \normalsize \CJKfamily{kai} （中南财经政法大学\, 统计与数学学院\, 湖北\, 武汉\, 430073）}
-#+LATEX_HEADER: \author{\CJKfamily{kai} 金 \enspace 林 \\ \CJKfamily{kai} 中南财经政法大学统计系 \\ jinlin82@gmail.com}
+#+LATEX_HEADER: \author{\CJKfamily{kai} 金 \enspace 林 \\ \CJKfamily{kai} 中南财经政法大学统计系 \\ jinlin82@qq.com}
+
 
 
 #+BEAMER_HEADER: \usetheme{default}
@@ -409,15 +535,17 @@ summary(my.lmer)
 #+BEAMER_HEADER: {
 #+BEAMER_HEADER: \begin{frame}<beamer>
 #+BEAMER_HEADER: \frametitle{}
-#+BEAMER_HEADER: \Large \tableofcontents[currentsubsection,sectionstyle=hide/hide]
+#+BEAMER_HEADER: \Large \tableofcontents[currentsubsection,sectionstyle=hide/hide, subsectionstyle=show/shaded/hide]
 #+BEAMER_HEADER: \end{frame}
 #+BEAMER_HEADER: }
 #+BEAMER_HEADER: \setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
-#+BEAMER_HEADER: \author[金\; 林(中南财经政法大学统计系)]{\CJKfamily{kai} 金 \enspace 林 \\ 中南财经政法大学统计系 \\ jinlin82@gmail.com}
+#+BEAMER_HEADER: \author[金\; 林(中南财经政法大学统计系)]{\CJKfamily{kai} 金 \enspace 林 \\ 中南财经政法大学统计系 \\ jinlin82@qq.com}
 
-#+AUTHOR:  金 \nbsp 林 \\ 中南财经政法大学统计系 \\ jinlin82@gmail.com
-#+EMAIL: jinlin82@gmail.com
-# +DATE: 2014年12月1日
-#+OPTIONS: H:3 toc:nil num:3 LaTeX:nil ^:{} email:nil tex:t author:nil arch:nil DATE:t
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="markdown.css" />
+
+#+AUTHOR: 金 \nbsp 林 \\ 中南财经政法大学统计系 \\ jinlin82@qq.com
+#+EMAIL: jinlin82@qq.com
+# +DATE: 2014年9月10日
+#+OPTIONS: H:3 toc:t num:4 LaTeX:nil ^:{} email:nil tex:t author:nil arch:nil DATE:t
 #+TITLE: 学习笔记
 
