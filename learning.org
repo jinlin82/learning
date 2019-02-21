@@ -92,7 +92,7 @@
 	 - =ssc install gcause=
 	 - =gcause y x, lag(3)=
 *** 例子
-** 联立方程模型
+# ** 联立方程模型
 * Unorganized
 ** 事件分析法
 *** 概念
@@ -158,13 +158,9 @@
    - Quota sampling is a method for selecting survey participants that is a
      non-probabilistic version of stratified sampling.
 
-
-
-    [[file:d:/Works/2013.7-%E4%B8%AD%E5%8D%97%E8%B4%A2%E7%BB%8F%E6%94%BF%E6%B3%95%E5%A4%A7%E5%AD%A6%E7%BB%9F%E6%95%B0%E5%AD%A6%E9%99%A2/2015%E5%B9%B401%E6%9C%8809%E6%97%A5--%E5%BB%BA%E8%AE%BE%E5%85%A8%E5%9B%BD%E4%B8%AD%E5%B0%8F%E6%8A%95%E8%B5%84%E8%80%85%E8%81%94%E7%BB%9C%E5%B9%B3%E5%8F%B0/draft/draft.org::*%E6%8A%BD%E6%A0%B7%E6%96%B9%E6%B3%95][抽样方法]]
 ** Gauss-Newton method
 
 
-  [[file:d:/Works/Teaching/2015%E5%B9%B4%E4%B8%8A%E5%8D%8A%E5%B9%B4--%E7%BB%8F%E6%B5%8E%E9%A2%84%E6%B5%8B%E4%B8%8E%E5%86%B3%E7%AD%96/%E8%AF%BE%E4%BB%B6/%E7%AC%AC3%E7%AB%A0--%E5%9B%9E%E5%BD%92%E9%A2%84%E6%B5%8B%E6%B3%95/chap3.org::*%E6%B3%A8%E6%84%8F%E7%9A%84%E9%97%AE%E9%A2%98][注意的问题]]
 ** 如何把 html source 转化为 org mode
 *** 目的
     - wikipedia里面网页的source代码里面有公式的tex代码，不用输入 tex 公式
@@ -219,24 +215,36 @@
  
  
   [[file:c:/Works/Working_Paper/2019-01-shibor-msgarch/ms-garch.Rmd][file:c:/Works/Working_Paper/2019-01-shibor-msgarch/ms-garch.Rmd]]
+** R 更新步骤：
+   1. 下载并安装新版本R安装文件（注意：一般不要下载最新版本，因为可能有些包没有更新不兼容）
+   2. 把旧版本中 library 复制到新版本 library 中，注意 不要替换
+   3. update 所有 packages(不要更新 rmarkdown 和 bookdown，因为已经修改), 可能需要几次
+   4. 把initial file.(etc文件夹)拷入新版中install.packages(file.choose(), repos = NULL, type="binary")
+   5. 更新环境变量名
+   6. 替换 rmarkdown 包中的 default-1.17.0.2.tex 文件
+   7. bookdown 源代码已修改，需remove 后再安装新编译版本
+* JavaScript
+** JavaScript 语言
+** Node.js
+** 工具支持
+   1. js2-mode
+   2. js-commit
+   3. indium(存在问题)
+
+* Rmarkdown 写作相关
 ** Markdown 中文换行输出后有空格问题解决方法
    - 这是很长时间以来都存在的一个问题。
    - 现在可以通过pandoc中的 east_asian_line_breaks 这个 extensions 来解决。
    - 可以在rmd的yaml部分添加
 word_document: 
     md_extensions: +east_asian_line_breaks
-** TODO Rmarkdown docx 输出模板配置（需要更新）
+** DONE Rmarkdown docx 输出模板配置（需要更新）
+   CLOSED: [2019-01-21 周一 23:33]
    1. 配置 word 模板文件，具体步骤见 [[https://rmarkdown.rstudio.com/articles_docx.html]]
    2. 其中需要配置样式的格式，比较复杂的是标题自动编号的配置，需要用到多级列表，具体为
       1. 图标 多级列表 - 定义新的多级列表， 点击下面的更多，设置相关，其中关键在于 *将级别链接到样式*
    3. 还需要配置公式，图，表等的格式
    4. 将配置好的word文档放在rmd文件夹中，配置rmd文件yaml header， 在word输出选项下增加： reference_docx: word-styles-01.docx
-** R 更新步骤：
-   1. 下载并安装新版本R安装文件（注意：一般不要下载最新版本，因为可能有些包没有更新不兼容）
-   2. 把旧版本中 library 复制到新版本 library 中，注意 不要替换
-   3. update 所有 packages, 可能需要几次
-   4. 把initial file.(etc文件夹)拷入新版中install.packages(file.choose(), repos = NULL, type="binary")
-   5. 更新环境变量名
 ** R 中修改package的源代码并重新安装的方法
    1. 安装 devtools 包
    2. 下载需要修改包的源代码压缩包，解压修改代码
@@ -266,7 +274,7 @@ paste0(label_prefix(type), num, '&nbsp;&nbsp;&nbsp;')  #### 增加 表数字 后
    2. 增加 _bookdown.yaml，修改英文 Figure Table 为图和表
    3. 修改Rmd文件的header为：
 
-#+BEGIN_SRC yaml :eval no
+#+BEGIN_SRC r :eval no
 ---
 title: "基于MS-GARCH模型的上海银行同业拆借利率波动性分析"
 author: "Jin"
@@ -301,11 +309,14 @@ csl: chinese-gb7714-2005-numeric.csl
 link-citations: true
 ---
 #+END_SRC
-
-
+** bookdown 和 rmarkdown 在LaTeX默认输出表格设置上有区别
+   1. rmarkdown 处理更优秀
+   2. 使用 bookdown::pdf_document2: 时，为达到与 rmarkdown 相同的效果，必须在
+      kable函数中加入 ~longtable = TRUE, booktabs = TRUE, linesep=""~ 选项
+   3. 且即使加入上面选项，多页表格中表头不能自动重复，需要额外使用 kableExtra 包
+      才能达到相同的效果
 * 参考文献管理
 ** Bibtex
-
 ** 参考文献管理软件 Jabref
 *** 功能
     1. 能够导入其他格式参考文献文件为bib
@@ -324,17 +335,18 @@ link-citations: true
    1. 原理为 pandoc-citeproc
    2. 准备好 bib 文件
    3. 在 yaml header 中加入：
-bibliography: msgarch.bib
 
-csl: chinese-gb7714-2005-numeric.csl
+~bibliography: msgarch.bib~
+
+~csl: chinese-gb7714-2005-numeric.csl~
    3. 文件结尾加入：
-#参考文献
 
-[//]: # (\bibliography{msgarch})
-   4. 正文中通过[@bibtexkey]引用
+~# 参考文献~
+
+~[//]: # (\bibliography{msgarch})~
+   4. 正文中通过 =[@bibtexkey]= 引用
 
 ** org-mode 中参考文献管理
-
 
 * Git
 ** 版本控制(version control)
@@ -363,9 +375,12 @@ Software tools for revision control are essential for the organization of multi-
 *** Magit
 *** Github
 ** Git Basics
-   1. 设置环境变量[[cite:Gompertz1825]]
+   1. 设置环境变量 [[cite:WangGG2014]]
    2. git 原理
    3. git 基本命令
+      1. 切换到历史版本(commit)或分支(branch) 进行 *查看*: =git checkout= <分支名 或 commit SHA 或 master~3>(表示master版本后退几步)
+      2. magit 中 快捷键 b b
+      3. rstdio 中 查看 history 后，在Terminal中输入 git checkout 命令
 ** Github
    1. 注册，网页操作
    2. Github 程序
@@ -395,6 +410,31 @@ Software tools for revision control are essential for the organization of multi-
    2. github-stars-list
    3. Magit
    4. Magithub: Magit 配合 github 使用
+
+* Vim
+** 基础
+   1. normal mode，edit mode， visual mode
+   2. 使用冒号输入命令
+   3. 光标移动hjkl
+   4. 翻页C-u，C-d
+** Vim复制粘贴
+   1. GVim 的话，CTRL+INSERT 复制到windows剪贴板，SHIFT+INSERT从windows剪贴板粘贴。
+   2. 直接 Ctrl-c，Ctrl-x，Ctrl-v
+   3. 在可视模式下，y，p复制粘贴只能在vim里面进行，不能到系统剪切板，可视模式下到剪切板应分别使用 ~"+y~ 和 ~+p~
+** Vim 查找替换
+   1. 查找  /
+   2. 替换 ~：%s/查找内容 /替换内容 /g~ ，如需一个个确认，可以在g后面直接连上c
+** Vim 注释代码-NERDcommenter
+   1. 安装 NERDCommenter
+   2. 设置 vimtc 文件
+
+#+BEGIN_SRC R :eval no
+let mapleader=","
+set timeout timeoutlen=1500
+#+END_SRC
+
+   3. =,cc= 注释当前行， =,c<space>= Toggle 注释
+
 * 代码
 ** lme simulation code
 
@@ -456,15 +496,38 @@ summary(my.lmer)
 #+END_SRC
 
 
-
-
 #+LATEX: \bibliographystyle{GBT7714-2005N}   % 参考文献style,中文的排序在fixbbl的选项中
 # use this comment line to fool org-ref find bib file +BIBLIOGRAPHY: Gompertz.bib  
 #+BIBLIOGRAPHY: Gompertz unsrt option:-nobibsource option:-i option:-nokeywords option:-noabstract limit:t    
 # +BIBLIOGRAPHY: Gompertz GBT7714-2005N option:-nobibsource option:-i option:-nokeywords option:-noabstract limit:t
+* Diagram
+** Asciiart, ditaa
+   1. artist-mode
+   2. ditaa.jar
+   3. org-babel
+** Graphviz dot graph
+   1. Graphviz program
+   2. Graphviz-dot-mode
+   3. org-babel
+** Plantuml
+   1. plantuml.jar(需要java run time 环境支持)
+   2. plantuml-mode
+   3. org-babel
+** Mermaid
+   1. 安装 mermaid-filter(包含了 mermaid和mermaid-cli，需要 node.js 支持)
+   2. mermaid-mode
+   3. ob-mermaid
+   4. org-babel
+   5. pandoc markdown with mermaid-filter
+      - 生成图形，标题和引用都没有问题，但图形使用bookdown不能自动编号
+      - 主要原因是：目前使用的bookdown的图表自动编号功能，其是建立在knitr把图表
+        生成html代码格式，而不是标准的pandoc markdown插入图表用法。
+      - 更好的方式是使用pandoc的插件pandoc-crossref,但 knitr 不支持
+      - 目前的解决方法：1. 不要自动编号 2. 写 mmd文件生成图片后，使用 =knitr::include_graphics= 插入图片
+      - 未来解决方法：写一个 基于 python的pandoc-filter，把图片的格式统一
+   6. 注意 R的 diagramer 包支持mermaid，在Rstudio中可以直接编辑 mmd格式文件然后生成图形.
 
 * Export Configuration 					   :noexport:ARCHIVE:
-# +LATEX_CLASS_OPTIONS: % 版本 2019-1-14
 # +LATEX_CLASS_OPTIONS: [11pt,xcolor=dvipsnames,aspectratio=43,hyperref={bookmarksdepth=4}]
 #+LATEX_CLASS_OPTIONS: [UTF8,a4paper,12pt]{ctexart}  % Latex 去掉上面的语句，加上本语句
 #+LaTeX_HEADER_EXTRA: % -------------------------- Document Title -----------------------------
@@ -472,10 +535,10 @@ summary(my.lmer)
 #+LATEX_HEADER_EXTRA: \pretitle{\begin{center}\vskip -1em\Large\textbf}
 #+LATEX_HEADER_EXTRA: \posttitle{\thanks{\textbf{基金项目}：中南财经政法大学基本科研业务费青年教师创新项目（20132049）；中南财经政法大学2013年实验教学项目《统计学实验课程动态图示项目建设》}\par\end{center}}
 #+LATEX_HEADER_EXTRA: \preauthor{\begin{center}\CJKfamily{kai}
-#+LATEX_HEADER_EXTRA: \lineskip -0.5em%
+#+LATEX_HEADER_EXTRA: \large \lineskip -0.5em%
 #+LATEX_HEADER_EXTRA: \begin{tabular}[t]{c}}
 #+LATEX_HEADER_EXTRA: \postauthor{\end{tabular}\par\end{center}}
-#+LATEX_HEADER_EXTRA: \predate{\begin{center}\CJKfamily{kai}\vskip -1em}
+#+LATEX_HEADER_EXTRA: \predate{\begin{center}\CJKfamily{kai}\vskip -1em\large}
 #+LATEX_HEADER_EXTRA: \postdate{\par\end{center}\vskip -2em}
 #+LaTeX_HEADER_EXTRA: % ------------------------Chapter Section Title-------------------------
 #+LaTeX_HEADER_EXTRA: \usepackage{titlesec}
@@ -495,7 +558,7 @@ summary(my.lmer)
 #+LaTeX_HEADER_EXTRA: \usepackage[super,square,sort&compress]{natbib}      % 参数代表：数字和排序与压缩
 #+LaTeX_HEADER_EXTRA: \setlength{\bibsep}{0ex}                             % 参考文献中行距缩小
 
-#+LaTeX_HEADER_EXTRA: \usepackage[top=2cm,bottom=2cm,left=2.5cm,right=2.5cm]{geometry}
+#+LaTeX_HEADER_EXTRA: \usepackage[top=2cm,bottom=2cm,left=3cm,right=3cm]{geometry}
 #+LaTeX_HEADER_EXTRA: \sloppy
 #+LaTeX_HEADER_EXTRA: \linespread{1.2}                    % 设置行距
 #+LaTeX_HEADER_EXTRA: \setlength{\parindent}{24pt}        % 段落缩进
@@ -504,48 +567,35 @@ summary(my.lmer)
 # +LaTeX_HEADER_EXTRA: \floatsetup[table]{style=plain,capposition=top,font=small}% 在.emacs文件中加载的floatsetup包取代了float包
 
 # +LATEX_HEADER: \author{\CJKfamily{kai} 金\quad 林 \\ \normalsize \CJKfamily{kai} （中南财经政法大学\, 统计与数学学院\, 湖北\, 武汉\, 430073）}
-#+LATEX_HEADER: \author{\CJKfamily{kai} 金 \enspace 林 \\ \CJKfamily{kai} 中南财经政法大学统计系 \\ jinlin82@qq.com}
+#+LATEX_HEADER: \author{\CJKfamily{kai} 金 \enspace 林 \\ \CJKfamily{kai} 中南财经政法大学统计与数学学院 \\ jinlin82@gmail.com}
 
-
-
-#+BEAMER_HEADER: \usetheme{default}
-#+BEAMER_HEADER: \useinnertheme[shadow]{rounded}
-#+BEAMER_HEADER: \useoutertheme{infolines}
+#+BEAMER_INNER_THEME: rounded [shadow]
+#+BEAMER_OUTER_THEME: infolines
 #+BEAMER_HEADER: \usecolortheme{seahorse}
 #+BEAMER_HEADER: \setbeamercolor{frametitle}{fg=Blue, bg=white}
 #+BEAMER_HEADER: \setbeamercolor{titlelike}{parent=structure}
 #+BEAMER_HEADER: \setbeamertemplate{caption}[numbered]
 #+BEAMER_HEADER: \setbeamertemplate{section in toc shaded}[default][50]
-#+BEAMER_HEADER: \setbeamertemplate{subsection in toc shaded}[default][20]
-# +BEAMER_HEADER: \setbeamertemplate{section in toc}[circle]
-#+BEAMER_HEADER: \setbeamertemplate{subsection in toc}[square]
 #+BEAMER_HEADER: \logo{\includegraphics[height=0.6cm,width=0.6cm]{znufelogo.jpg}}
 #+BEAMER_HEADER: \setbeamercovered{transparent}
 #+BEAMER_HEADER: \setCJKmainfont[BoldFont={* Bold}]{Microsoft YaHei}
-#+BEAMER_HEADER: \usefonttheme[onlylarge]{structuresmallcapsserif}
-#+BEAMER_HEADER: \usefonttheme[onlymath]{serif}
+#+BEAMER_HEADER: \usefonttheme[stillsansserifsmall,stillsansseriflarge]{serif}
 #+BEAMER_HEADER: \setbeamertemplate{frametitle}{\bfseries\insertframetitle\par\vskip-6pt}
-
 #+BEAMER_HEADER: \AtBeginSection[]
 #+BEAMER_HEADER: {
 #+BEAMER_HEADER: \setcounter{tocdepth}{2}
 #+BEAMER_HEADER: \frame[shrink=5]{\tableofcontents[currentsection, hideothersubsections]}
 #+BEAMER_HEADER: }
-#+BEAMER_HEADER: \AtBeginSubsection[] % Do nothing for \subsection*
-#+BEAMER_HEADER: {
-#+BEAMER_HEADER: \begin{frame}<beamer>
-#+BEAMER_HEADER: \frametitle{}
-#+BEAMER_HEADER: \Large \tableofcontents[currentsubsection,sectionstyle=hide/hide, subsectionstyle=show/shaded/hide]
-#+BEAMER_HEADER: \end{frame}
-#+BEAMER_HEADER: }
 #+BEAMER_HEADER: \setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
-#+BEAMER_HEADER: \author[金\; 林(中南财经政法大学统计系)]{\CJKfamily{kai} 金 \enspace 林 \\ 中南财经政法大学统计系 \\ jinlin82@qq.com}
+# +BEAMER_HEADER: \usepackage[orientation=landscape,size=custom,width=16,height=9.75,scale=0.5,debug]{beamerposter}
+#+BEAMER_HEADER: \author[金\; 林(中南财经政法大学统计与数学学院)]{\CJKfamily{kai} 金 \enspace 林 \\ 中南财经政法大学统计与数学学院 \\ jinlin82@gmail.com}
 
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="markdown.css" />
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="markdown.css"/>
 
-#+AUTHOR: 金 \nbsp 林 \\ 中南财经政法大学统计系 \\ jinlin82@qq.com
-#+EMAIL: jinlin82@qq.com
-# +DATE: 2014年9月10日
+#+AUTHOR:  金 \nbsp 林 \\ 中南财经政法大学统计与数学学院 \\ jinlin82@gmail.com
+#+EMAIL: jinlin82@gmail.com
+#+DATE: 2014年9月
 #+OPTIONS: H:3 toc:t num:4 LaTeX:nil ^:{} email:nil tex:t author:nil arch:nil DATE:t
+
 #+TITLE: 学习笔记
 
