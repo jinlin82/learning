@@ -311,11 +311,7 @@ css: markdown.css
 autoEqnLabels: true
 eqnPrefixTemplate: ($$i$$)
 linkReferences: true
-<<<<<<< HEAD
 bibliography: Bibfile.bib
-=======
-bibliography: msgarch.bib
->>>>>>> 791a4634a25d11b769b7594a7d62599d58bc140b
 csl: chinese-gb7714-2005-numeric.csl
 link-citations: true
 ---
@@ -327,10 +323,6 @@ link-citations: true
    3. 且即使加入上面选项，多页表格中表头不能自动重复，需要额外使用 kableExtra 包
       才能达到相同的效果
 * 参考文献管理
-<<<<<<< HEAD
-=======
-** Bibtex
->>>>>>> 791a4634a25d11b769b7594a7d62599d58bc140b
 ** 参考文献管理软件 Jabref
 *** 功能
     1. 能够导入其他格式参考文献文件为bib
@@ -350,18 +342,13 @@ link-citations: true
    2. 准备好 bib 文件
    3. 在 yaml header 中加入：
 
-<<<<<<< HEAD
 ~bibliography: Bibfile.bib~
-=======
-~bibliography: msgarch.bib~
->>>>>>> 791a4634a25d11b769b7594a7d62599d58bc140b
 
 ~csl: chinese-gb7714-2005-numeric.csl~
    3. 文件结尾加入：
 
 ~# 参考文献~
 
-<<<<<<< HEAD
 ~[//]: # (\bibliography{Bibfile})~
    4. 正文中通过 =[@bibtexkey]= 引用
 
@@ -440,12 +427,6 @@ graph LR
        =helm-bibtex-with-local-bibliography= 函数
 
 *** 利用 pandoc 处理交叉引用
-=======
-~[//]: # (\bibliography{msgarch})~
-   4. 正文中通过 =[@bibtexkey]= 引用
-
-** org-mode 中参考文献管理
->>>>>>> 791a4634a25d11b769b7594a7d62599d58bc140b
 
 * Git
 ** 版本控制(version control)
@@ -534,7 +515,6 @@ set timeout timeoutlen=1500
 
    3. =,cc= 注释当前行， =,c<space>= Toggle 注释
 
-<<<<<<< HEAD
 * Diagram
 ** Asciiart, ditaa
    1. artist-mode
@@ -562,8 +542,6 @@ set timeout timeoutlen=1500
       - 未来解决方法：写一个 基于 python的pandoc-filter，把图片的格式统一
    6. 注意 R的 diagramer 包支持mermaid，在Rstudio中可以直接编辑 mmd格式文件然后生成图形.
 
-=======
->>>>>>> 791a4634a25d11b769b7594a7d62599d58bc140b
 * 代码
 ** lme simulation code
 
@@ -624,7 +602,6 @@ summary(my.lmer)
   
 #+END_SRC
 
-<<<<<<< HEAD
 * 参考文献                                                         :ignore:
 \cite{Ohishi2009535} 
 #+BEAMER: \begin{frame}[allowframebreaks] \frametitle{参考文献}  \footnotesize
@@ -633,39 +610,6 @@ summary(my.lmer)
 #+BIBLIOGRAPHY: Bibfile nil limit:t
 
 #+BEAMER: \end{frame}
-=======
-
-#+LATEX: \bibliographystyle{GBT7714-2005N}   % 参考文献style,中文的排序在fixbbl的选项中
-# use this comment line to fool org-ref find bib file +BIBLIOGRAPHY: Gompertz.bib  
-#+BIBLIOGRAPHY: Gompertz unsrt option:-nobibsource option:-i option:-nokeywords option:-noabstract limit:t    
-# +BIBLIOGRAPHY: Gompertz GBT7714-2005N option:-nobibsource option:-i option:-nokeywords option:-noabstract limit:t
-* Diagram
-** Asciiart, ditaa
-   1. artist-mode
-   2. ditaa.jar
-   3. org-babel
-** Graphviz dot graph
-   1. Graphviz program
-   2. Graphviz-dot-mode
-   3. org-babel
-** Plantuml
-   1. plantuml.jar(需要java run time 环境支持)
-   2. plantuml-mode
-   3. org-babel
-** Mermaid
-   1. 安装 mermaid-filter(包含了 mermaid和mermaid-cli，需要 node.js 支持)
-   2. mermaid-mode
-   3. ob-mermaid
-   4. org-babel
-   5. pandoc markdown with mermaid-filter
-      - 生成图形，标题和引用都没有问题，但图形使用bookdown不能自动编号
-      - 主要原因是：目前使用的bookdown的图表自动编号功能，其是建立在knitr把图表
-        生成html代码格式，而不是标准的pandoc markdown插入图表用法。
-      - 更好的方式是使用pandoc的插件pandoc-crossref,但 knitr 不支持
-      - 目前的解决方法：1. 不要自动编号 2. 写 mmd文件生成图片后，使用 =knitr::include_graphics= 插入图片
-      - 未来解决方法：写一个 基于 python的pandoc-filter，把图片的格式统一
-   6. 注意 R的 diagramer 包支持mermaid，在Rstudio中可以直接编辑 mmd格式文件然后生成图形.
->>>>>>> 791a4634a25d11b769b7594a7d62599d58bc140b
 
 * Export Configuration 					   :noexport:ARCHIVE:
 # +LATEX_CLASS_OPTIONS: [11pt,xcolor=dvipsnames,aspectratio=43,hyperref={bookmarksdepth=4}]
@@ -706,12 +650,9 @@ summary(my.lmer)
 #+LaTeX_HEADER_EXTRA: \pagestyle {plain}                  % 去掉页眉
 # +LaTeX_HEADER_EXTRA: \floatsetup[table]{style=plain,capposition=top,font=small}% 在.emacs文件中加载的floatsetup包取代了float包
 
-<<<<<<< HEAD
 # +LaTeX_HEADER_EXTRA: \everymath{\color{blue}}
 # +LaTeX_HEADER_EXTRA: \everydisplay{\color{blue}}
 
-=======
->>>>>>> 791a4634a25d11b769b7594a7d62599d58bc140b
 # +LATEX_HEADER: \author{\CJKfamily{kai} 金\quad 林 \\ \normalsize \CJKfamily{kai} （中南财经政法大学\, 统计与数学学院\, 湖北\, 武汉\, 430073）}
 #+LATEX_HEADER: \author{\CJKfamily{kai} 金 \enspace 林 \\ \CJKfamily{kai} 中南财经政法大学统计与数学学院 \\ jinlin82@gmail.com}
 
@@ -722,10 +663,7 @@ summary(my.lmer)
 #+BEAMER_HEADER: \setbeamercolor{titlelike}{parent=structure}
 #+BEAMER_HEADER: \setbeamertemplate{caption}[numbered]
 #+BEAMER_HEADER: \setbeamertemplate{section in toc shaded}[default][50]
-<<<<<<< HEAD
 #+BEAMER_HEADER: \setbeamertemplate{frametitle continuation}[from second][(续)] % 改变
-=======
->>>>>>> 791a4634a25d11b769b7594a7d62599d58bc140b
 #+BEAMER_HEADER: \logo{\includegraphics[height=0.6cm,width=0.6cm]{znufelogo.jpg}}
 #+BEAMER_HEADER: \setbeamercovered{transparent}
 #+BEAMER_HEADER: \setCJKmainfont[BoldFont={* Bold}]{Microsoft YaHei}
