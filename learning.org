@@ -738,7 +738,7 @@ summary(my.lmer)
 #+BEAMER_HEADER: }
 #+BEAMER_HEADER: \setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
 # +BEAMER_HEADER: \usepackage[orientation=landscape,size=custom,width=16,height=9.75,scale=0.5,debug]{beamerposter}
-<<<<<<< HEAD
+
 # +BEAMER_HEADER: \everymath{\color{blue}}
 #+BEAMER_HEADER: \everydisplay{\color{blue}}
 #+BEAMER_HEADER: \author[金\; 林(中南财经政法大学统计与数学学院)]{\CJKfamily{kai} 金 \enspace 林 \\ 中南财经政法大学统计与数学学院 \\ jinlin82@gmail.com}
@@ -746,18 +746,4 @@ summary(my.lmer)
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="style.css"/>
 #+HTML_MATHJAX: tagside: right 
 #+HTML_MATHJAX: cancel.js noErrors.js
-=======
-#+BEAMER_HEADER: \author[金\; 林(中南财经政法大学统计与数学学院)]{\CJKfamily{kai} 金 \enspace 林 \\ 中南财经政法大学统计与数学学院 \\ jinlin82@gmail.com}
-
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="markdown.css"/>
->>>>>>> 791a4634a25d11b769b7594a7d62599d58bc140b
-
-#+AUTHOR:  金 \nbsp 林 \\ 中南财经政法大学统计与数学学院 \\ jinlin82@gmail.com
-#+EMAIL: jinlin82@gmail.com
-#+DATE: 2014年9月
-#+OPTIONS: H:3 toc:t num:4 LaTeX:nil ^:{} email:nil tex:t author:nil arch:nil DATE:t
-
-#+TITLE: 学习笔记
-
-
 
