@@ -99,7 +99,8 @@
 	 - =ssc install gcause=
 	 - =gcause y x, lag(3)=
 *** 例子
-# ** 联立方程模型
+** 联立方程模型
+
 * Unorganized
 ** 事件分析法
 *** 概念
@@ -685,3 +686,9 @@ summary(my.lmer)
 #+HTML_MATHJAX: tagside: right 
 #+HTML_MATHJAX: cancel.js noErrors.js
 
+#+AUTHOR:  金 \nbsp 林 \\ 中南财经政法大学统计与数学学院 \\ jinlin82@gmail.com
+#+EMAIL: jinlin82@gmail.com
+#+DATE: 2014年9月
+#+OPTIONS: H:3 toc:t num:4 LaTeX:nil ^:{} email:nil tex:t author:nil arch:nil DATE:t
+
+#+TITLE: 学习笔记
