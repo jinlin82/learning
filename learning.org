@@ -456,16 +456,84 @@ Software tools for revision control are essential for the organization of multi-
 *** Magit
 *** Github
 ** Git Basics
-   1. 设置环境变量 [[cite:WangGG2014]]
-   2. git 原理
-   3. git 基本命令
+*** 基础
+    1. 设置环境变量
+    2. git 原理
+*** HEAD, master, origin/master
+    1. ~HEAD~: 当前所在的commit版本，在查看历史版本中，也指的是当前查看的版本
+    2. ~master~: 本地repo主分支所在的版本
+    3. ~origin/master~: 远程repo的主分支所在版本
+    4. 在本地 repo 修改提交后还未push的时候， ~master~, ~origin/master~ 不一样
+    5. 在使用 ~git checkout~ 查看历史版本时， ~HEAD~ 和 ~master~ 不一样
+*** 如何引用历史版本
+    1. 使用 SHA-1 码
+    2. 使用HEAD, master, origin/master名称
+    3. 使用 ~ 和 ^ 操作符号
+
+#+BEGIN_EXAMPLE
+G   H   I   J
+ \ /     \ /
+  D   E   F
+   \  |  / \
+    \ | /   |
+     \|/    |
+      B     C
+       \   /
+        \ /
+         A
+
+A =      = A^0
+B = A^   = A^1     = A~1
+C = A^2
+D = A^^  = A^1^1   = A~2
+E = B^2  = A^^2
+F = B^3  = A^^3
+G = A^^^ = A^1^1^1 = A~3
+H = D^2  = B^^2    = A^^^2  = A~2^2
+I = F^   = B^3^    = A^^3^
+J = F^2  = B^3^2   = A^^3^2
+#+END_EXAMPLE
+
+*** 切换查看历史版本
       1. 切换到历史版本(commit)或分支(branch) 进行 *查看*: =git checkout= <分支名 或 commit SHA 或 master~3>(表示master版本后退几步)
       2. magit 中 快捷键 b b
       3. rstdio 中 查看 history 后，在Terminal中输入 git checkout 命令
+*** 撤销历史提交，undo，回滚到历史版本
+    1. 利用编辑器的 undo redo命令
+    2. (注意：非常危险，不能恢复的操作)保存了后但未stage时利用 git checkout filename， magit-discard, Rstudio中的Revert..按钮作用相同
+    3. (注意：非常危险，不能恢复的操作)保存了并stage后但未commit后同样利用 migit-discard
+    4. 如果修改已经提交，但还未push的时候：撤销上一次操作： git revert HEAD，同样可以撤销几次操作，可能会有冲突，利用冲突解决方法解决
+    5. 如果修改提交并且已经push，这时同4中的操作，并再push撤销后的提交
+    6. 4，5的操作方法比较安全，但log history比较乱，有时要处理冲突，如果想完全回
+       到某历史版本，不考虑其后的修改，并清除改历史版本以后的log history，可以使
+       用 git reset --hard <rev>, 然后 git push --force
+    7. 注意6的操作后 log history 中不包含历史版本后面提交的，如果这时想恢复到原
+       来的新版本，先使用 git reflog 得到完整的log history，再git reset --hard
+       <rev>, 然后 git push --force
+    8. 注意：git log 和 git reflog 在cmd中中文乱码，在设置后，使用 git bash.exe 可以
+       解决，但 git bash.exe 在Rstudio中有一个bug，不能找到git的环境变量(which git)
+*** 停止 track file 或者 文件夹
+    1. For single file:
+       #+begin_example
+       git rm --cached mylogfile.log
+       #+end_example
+    2. For single directory:
+       #+begin_example
+       git rm --cached -r mydirectory
+       #+end_example
+    3. 在magit中使用 ~magit-file-untrack~ 函数
+
 ** Github
-   1. 注册，网页操作
-   2. Github 程序
-   3. 把本地文件夹用git控制并push到Github步骤：
+*** 注册安装
+    1. 注册，网页操作
+    2. Github 程序
+*** 克隆GitHub项目的方法
+    1. 使用 git clone 命令
+    2. Rstudio中clone项目
+    3. 使用magit-clone命令
+    4. 最优：使用helm-github-stars, 然后C-z到Action，然后选择clone
+    5. 注意：不要使用 magithub-clone命令，会出现错误，并且可能接下来导致前面几种方法出现错误
+*** 创建项目：把本地文件夹用git控制并push到Github步骤：
       1. 使用Github网页操作：网页中建立项目，把需要版本控制的文件上传到项目中，然后再把项目clone到文件夹中。
       2. 使用git命令操作,可以在Terminal运行git命令.
       3. 使用Magit操作：
@@ -473,19 +541,19 @@ Software tools for revision control are essential for the organization of multi-
 	 2. 选择需要 stage 到 文件，不要选择大文件，不需要监控的文件
 	 3. commit, 本地库已被 git 版本控制
 	 4. 运行 magithub-create 把 local repo push 到 github，按提示操作即可
-   4. 合作者(Collaborator)步骤：
-      1. repository owner 向合作者发出合作邀请(repository setting)
-      2. 被邀请者在网页 (https://github.com/username/reponame/invitations) 接受邀请，成为合作者
-      3. 合作者 clone owner's 的repository 到 本地 repository
-      4. 修改(Modified) -> 保存(save) -> 登记(stage) -> 提交(commit) -> 上传(push)
-      5. 重新开始工作时，下拉(pull)最新版本
-      6. 如果push的时候，remote 已经修改，两个修改不一致则会产生冲突，这时则需重新 pull 并 手工解决冲突后再按push步骤提交。
-   5. 贡献者(Contributor)步骤：
-      1. 贡献者 Fork：网页操作，程序操作，Emacs-Magithub 操作
-      2. 贡献者 Clone 自己的fork 到本地 repository
-      3. 贡献者修改后 push 到贡献者的fork
-      4. 向 owner 提交 pull request
-      5. 贡献者 sync with owner's master [[https://stackoverflow.com/questions/7244321/how-do-i-update-a-github-forked-repository]]
+*** 合作者(Collaborator)步骤：
+     1. repository owner 向合作者发出合作邀请(repository setting)
+     2. 被邀请者在网页 (https://github.com/username/reponame/invitations) 接受邀请，成为合作者
+     3. 合作者 clone owner's 的repository 到 本地 repository
+     4. 修改(Modified) -> 保存(save) -> 登记(stage) -> 提交(commit) -> 上传(push)
+     5. 重新开始工作时，下拉(pull)最新版本
+     6. 如果push的时候，remote 已经修改，两个修改不一致则会产生冲突，这时则需重新 pull 并 手工解决冲突后再按push步骤提交。
+*** 贡献者(Contributor)步骤：
+    1. 贡献者 Fork：网页操作，程序操作，Emacs-Magithub 操作
+    2. 贡献者 Clone 自己的fork 到本地 repository
+    3. 贡献者修改后 push 到贡献者的fork
+    4. 向 owner 提交 pull request
+    5. 贡献者 sync with owner's master [[https://stackoverflow.com/questions/7244321/how-do-i-update-a-github-forked-repository]]
 ** Emacs + Git
    1. helm-github-stars
    2. github-stars-list
@@ -604,7 +672,7 @@ summary(my.lmer)
 #+END_SRC
 
 * 参考文献                                                         :ignore:
-\cite{Ohishi2009535} 
+ [[cite:WangGG2014]]  \cite{Ohishi2009535} 
 #+BEAMER: \begin{frame}[allowframebreaks] \frametitle{参考文献}  \footnotesize
 
 # \bibliography{Bibfile}  \bibliographystyle{GBT7714-2005N} % 使用该注释让org-ref找到本地bib文件
@@ -682,7 +750,7 @@ summary(my.lmer)
 #+BEAMER_HEADER: \everydisplay{\color{blue}}
 #+BEAMER_HEADER: \author[金\; 林(中南财经政法大学统计与数学学院)]{\CJKfamily{kai} 金 \enspace 林 \\ 中南财经政法大学统计与数学学院 \\ jinlin82@gmail.com}
 
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="style.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="markdown.css"/>
 #+HTML_MATHJAX: tagside: right 
 #+HTML_MATHJAX: cancel.js noErrors.js
 
