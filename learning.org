@@ -246,8 +246,7 @@
    - 可以在rmd的yaml部分添加
 word_document: 
     md_extensions: +east_asian_line_breaks
-** DONE Rmarkdown docx 输出模板配置（需要更新）
-   CLOSED: [2019-01-21 周一 23:33]
+** Rmarkdown docx 输出模板配置（需要更新）
    1. 配置 word 模板文件，具体步骤见 [[https://rmarkdown.rstudio.com/articles_docx.html]]
    2. 其中需要配置样式的格式，比较复杂的是标题自动编号的配置，需要用到多级列表，具体为
       1. 图标 多级列表 - 定义新的多级列表， 点击下面的更多，设置相关，其中关键在于 *将级别链接到样式*
@@ -522,7 +521,10 @@ J = F^2  = B^3^2   = A^^3^2
        git rm --cached -r mydirectory
        #+end_example
     3. 在magit中使用 ~magit-file-untrack~ 函数
-
+*** 查看所有 track 的文件
+    - magit 中不支持，可以使用 ~git ls-files~ 命令，但在 cmd 中使用时，中文名会乱
+      码，经过设置后，可以在 ~git-bash~ 中使用。
+    - neotree中可以显示
 ** Github
 *** 注册安装
     1. 注册，网页操作
@@ -611,6 +613,86 @@ set timeout timeoutlen=1500
       - 未来解决方法：写一个 基于 python的pandoc-filter，把图片的格式统一
    6. 注意 R的 diagramer 包支持mermaid，在Rstudio中可以直接编辑 mmd格式文件然后生成图形.
 
+* Emacs
+** Org-mode
+*** Org sync
+
+    - org todo list sync with Toodledo.com by org-toodledo package, but it has
+      some bugs(emacs hang). Toodledo can also sync with outlook and evernote
+      (by gSyncit).
+    - DO NOT delete from server, or will be some mistakes.
+    - Org files can be edited in Phone and synced with the cloud, and then synced with computers.
+      1. the cloud: 坚果云
+      2. sync with computers: 坚果云Window客户端
+      3. sync with Phone: Foldersync App, set up 坚果云的webdav.
+      4. edit org file in phone: Orgzly App.
+
+*** Org mode integrate with Outlook, evernote and Lotus Notes
+
+    - Org mode integrate with Outlook, evernote, see above.
+    - Lotus Notes is not used any more.
+
+** ess-mode
+*** ess eldoc not working with bookmark+
+
+    - when emacs library "bookmark+" loaded, in ess-13.09, ess-eldoc
+      can't work, when pointing a function , echo area just show
+      "nil:", not arguments hints; I tried ess-12.04-4, ess-eldoc can
+      work with "bookmark+".
+
+** 数学公式转换 MathML LaTex Odt docx xml org-mode
+*** MathML
+    - Mathtoweb Coverter  [[http://www.mathtoweb.com/cgi-bin/mathtoweb_home.pl][Website]]
+*** org-mode export odt 时如何把latex转化为odt公式
+    - latex 可以转化为 MathML
+    - word 2007之后直接粘贴 MathML 代码可以显示为公式
+    - Mathematica具备显示latex, MathML的功能
+
+** R functions for nonparametrics and semiparametrics
+*** packages for non- and semi- parametrics models
+    - sm
+    - SemiPar
+    - mgcv
+    - gam
+    - assist
+    - stats
+    - splines
+    - gss
+    - locfit
+    - vgam
+    - gamlss
+*** functions
+    - kernel:stats
+    - ksmooth:stats
+    - kernapply:stats
+    - smooth.spline:stats
+    - loess:stats
+    - lowess:stats
+    - bs:splines
+    - ns:splines
+    - gam:mgcv
+
+** 安装新的Emacs
+     1. 官方下载新版本(64位)，也可以是32位，为兼容性起见，推荐32位, 经验证，64位启动快1秒
+     2. 解压后放至worktools文件夹
+     3. 把 emacs.bat和emacs.bat放到bin文件夹中
+     4. 修改环境变量PATH
+     5. 修改任务栏快捷方式
+     6. 修改AHK文件
+     7. 修改 lisp\org 文件夹为如 list\org-9.1.9, 以防止emacs默认加载安装包的org，要使得其加载 elpa里面的版本
+** Emacs template
+    1. Abbrev mode
+    2. auto-insert-mode
+    3. clipper.el
+    4. yasnippet
+* 文件整理与同步
+** 工具简介
+   1. org-mode
+   2. Rmd
+   3. Trello: 用于手机快速记录，各种设备同步
+   4. Github
+   5. GoosSync, 坚果云, foldersync
+   6. Evernote
 * 代码
 ** lme simulation code
 
@@ -672,7 +754,7 @@ summary(my.lmer)
 #+END_SRC
 
 * 参考文献                                                         :ignore:
- [[cite:WangGG2014]]  \cite{Ohishi2009535} 
+ [[cite:WangGG2014]]  \cite{Ohishi2009535}
 #+BEAMER: \begin{frame}[allowframebreaks] \frametitle{参考文献}  \footnotesize
 
 # \bibliography{Bibfile}  \bibliographystyle{GBT7714-2005N} % 使用该注释让org-ref找到本地bib文件
