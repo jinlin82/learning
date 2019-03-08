@@ -753,7 +753,7 @@ summary(my.lmer)
   
 #+END_SRC
 
-* 参考文献                                                         :ignore:
+* TODO 参考文献                                                      :ignore:
  [[cite:WangGG2014]]  \cite{Ohishi2009535}
 #+BEAMER: \begin{frame}[allowframebreaks] \frametitle{参考文献}  \footnotesize
 
