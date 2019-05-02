@@ -679,7 +679,7 @@ set timeout timeoutlen=1500
      4. 修改环境变量PATH
      5. 修改任务栏快捷方式
      6. 修改AHK文件
-     7. 修改 lisp\org 文件夹为如 list\org-9.1.9, 以防止emacs默认加载安装包的org，要使得其加载 elpa里面的版本
+     7. 修改 lisp-org 文件夹为如 list-org-9.1.9, 以防止emacs默认加载安装包的org，要使得其加载 elpa里面的版本
 ** Emacs template
     1. Abbrev mode
     2. auto-insert-mode
@@ -752,9 +752,77 @@ summary(my.lmer)
   summary(fit.ml)
   
 #+END_SRC
-
-* TODO 参考文献                                                      :ignore:
- [[cite:WangGG2014]]  \cite{Ohishi2009535}
+* Math
+** Math in MS Word
+   1. Word’s first math editing facility was the EQ field.
+   2. MathType and its limited edition, the Equation Editor, made math entry
+      easier and considerably more general than the EQ field by adding intuitive
+      tool bars giving access to mathematical symbols and function templates.
+   3. native Office math facility(OMML Office math markup language) introduced in Microsoft Word in 2007 and added
+      to PowerPoint, OneNote, and in Excel Text Boxes in 2010.
+   4. Design Science designed MathType, which first shipped on the Mac in 1987
+      and was released on Windows in 1990. A simplified version of MathType
+      called the Equation Editor was introduced in 1992 and has shipped as part
+      of Office on Windows and the Mac ever since.
+** Background
+   1. The old Word Equation Editor was built upon MathType.
+   2. The new Word Equation Editor is based on OMML.
+   3. A MathType-Equation is displayed as an image in Word. If you have MathType
+      installed, a separate window opens if you click to edit the
+      equation. Else, you cannot edit it. New equations (OMML) can be edited
+      directly inside the Word software.
+   4. OMML and MathML are both XML-formats. omml2mml.xsl is a file provided by Microsoft to go from OMML to MathML.
+   5. MathType uses a non-XML-structure for its equations.
+   6. MathType can import MathML equations, but not OMML.
+   7. MathType therefore requires the omml2mml.xsl file to generate MathML first.
+   8. On a side note, MathType does not always preserve character styles (bold/italic) when exporting to MathML/TeX.
+   9. To support all equation-types in Word, and to improve the performance of conversion, transpect is able to translate MathType to MathML.
+** Office 中数学公式的种类
+   1. EQ域：EQ field，最先使用，outdated
+   2. Microsoft Equation Editor 3.x: mathtype 的精简版，已不再用
+   3. Mathtype
+   4. Office Math(OMML, Word 2007 引入)
+   5. LaTex
+** 相互转换
+   1. Equation Editor 3.x, Office Math, Latex->Mathtype: by Mathtype
+   2. Mathtype->Latex: Mathtype
+   3. Mathtype->Equation Editor 3.x: GrindEQ
+   4. Mathtype->Office Math:
+      1. Office 365
+      2. Office 2019?
+      3. setting MathType's Cut and Copy Preferences: "namespace attr", convert, cut and paste
+      4. Mathtype' convert: "namespace attr"
+   5. Latex->Office Math:
+      1. pandoc(但是稍复杂代码不支持)
+      2. Office365, Office 2019?
+      3. Latex->Mathtype->Office Math
+   6. Office Math -> Latex:
+      1. pandoc
+      2. office math -> mathtype -> Latex
+** 使用原则，尽量使用 Office Math
+   1. Office math 输入方法： Unicode Math
+   2. Office 2019 中可以使用 Latex 输入
+** rmarkdown 转化为 word 公式处理
+   1. 一般latex代码直接转换成了 Office Math
+   2. 复杂latex代码转换不了直接以latex代码在 word 中，可以先使用mathtype转化为mathtype公式再转换为Office Math
+* 移动版worktools注意事项
+** 基本要求
+   1. 盘符为H(start.bat, changedriver.bat)
+   2. 设置PATH,设置时使用32位程序(emacs, jre, R)
+   3. 运行 mobile.exe
+** Emacs init 文件修改
+   1. 把所有文件中的C:\换成H:\
+   2. face.el 中字体设置：要保证Consolas字体和微软雅黑字体存在，否则注释掉 cnfonts 部分，根据系统字体情况(如xp系统)设置 set-default-attribute 和 init-msyh 打开
+   3. basic.el中设置 color-theme
+   4. 公开场所不显示 org-agenda
+   5. 减少加载文件，加快速度
+** Vimrc 文件设置
+   1. 要保证Consolas字体和幼圆字体存在，否则会出错
+** 注意
+   1. 直接用bat文件拷贝fonts文件安装字体会出错，特别是字体已存在的时候
+   2. git项目文件夹要把 .git 隐藏文件夹拷进去，才有项目信息
+* 参考文献                                                           :ignore:
+要有文字，否则会出错参考文献1 [[cite:WangGG2014]]， 参考文献2  \cite{Ohishi2009535}
 #+BEAMER: \begin{frame}[allowframebreaks] \frametitle{参考文献}  \footnotesize
 
 # \bibliography{Bibfile}  \bibliographystyle{GBT7714-2005N} % 使用该注释让org-ref找到本地bib文件
@@ -762,18 +830,19 @@ summary(my.lmer)
 
 #+BEAMER: \end{frame}
 
+
 * Export Configuration 					   :noexport:ARCHIVE:
-# +LATEX_CLASS_OPTIONS: [11pt,xcolor=dvipsnames,aspectratio=43,hyperref={bookmarksdepth=4}]
-#+LATEX_CLASS_OPTIONS: [UTF8,a4paper,12pt]{ctexart}  % Latex 去掉上面的语句，加上本语句
+#+LATEX_CLASS_OPTIONS: [11pt,xcolor=dvipsnames,aspectratio=43,hyperref={bookmarksdepth=4}]
+# +LATEX_CLASS_OPTIONS: [UTF8,a4paper,12pt]{ctexart}  % Latex 去掉上面的语句，加上本语句
 #+LaTeX_HEADER_EXTRA: % -------------------------- Document Title -----------------------------
 #+LATEX_HEADER_EXTRA: \usepackage{titling}
 #+LATEX_HEADER_EXTRA: \pretitle{\begin{center}\vskip -1em\Large\textbf}
 #+LATEX_HEADER_EXTRA: \posttitle{\thanks{\textbf{基金项目}：中南财经政法大学基本科研业务费青年教师创新项目（20132049）；中南财经政法大学2013年实验教学项目《统计学实验课程动态图示项目建设》}\par\end{center}}
 #+LATEX_HEADER_EXTRA: \preauthor{\begin{center}\CJKfamily{kai}
-#+LATEX_HEADER_EXTRA: \large \lineskip -0.5em%
+#+LATEX_HEADER_EXTRA: \lineskip -1em%
 #+LATEX_HEADER_EXTRA: \begin{tabular}[t]{c}}
 #+LATEX_HEADER_EXTRA: \postauthor{\end{tabular}\par\end{center}}
-#+LATEX_HEADER_EXTRA: \predate{\begin{center}\CJKfamily{kai}\vskip -1em\large}
+#+LATEX_HEADER_EXTRA: \predate{\begin{center}\CJKfamily{kai}\vskip -1.2em}
 #+LATEX_HEADER_EXTRA: \postdate{\par\end{center}\vskip -2em}
 #+LaTeX_HEADER_EXTRA: % ------------------------Chapter Section Title-------------------------
 #+LaTeX_HEADER_EXTRA: \usepackage{titlesec}
@@ -795,50 +864,68 @@ summary(my.lmer)
 
 #+LaTeX_HEADER_EXTRA: \usepackage[top=2cm,bottom=2cm,left=3cm,right=3cm]{geometry}
 #+LaTeX_HEADER_EXTRA: \sloppy
-#+LaTeX_HEADER_EXTRA: \linespread{1.2}                    % 设置行距
+#+LaTeX_HEADER_EXTRA: \linespread{1.1}                    % 设置行距
 #+LaTeX_HEADER_EXTRA: \setlength{\parindent}{24pt}        % 段落缩进
 #+LaTeX_HEADER_EXTRA: \setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
 #+LaTeX_HEADER_EXTRA: \pagestyle {plain}                  % 去掉页眉
+#+LaTeX_HEADER_EXTRA: \usepackage{enumitem}               % 设置item间距
+#+LaTeX_HEADER_EXTRA: \setitemize[1]{itemsep=0pt,partopsep=0pt,parsep=\parskip,topsep=5pt}  % 设置item间距
+#+LaTeX_HEADER_EXTRA: \setenumerate[1]{itemsep=0pt,partopsep=0pt,parsep=\parskip,topsep=5pt} % 设置枚举间距
 # +LaTeX_HEADER_EXTRA: \floatsetup[table]{style=plain,capposition=top,font=small}% 在.emacs文件中加载的floatsetup包取代了float包
 
 # +LaTeX_HEADER_EXTRA: \everymath{\color{blue}}
 # +LaTeX_HEADER_EXTRA: \everydisplay{\color{blue}}
 
 # +LATEX_HEADER: \author{\CJKfamily{kai} 金\quad 林 \\ \normalsize \CJKfamily{kai} （中南财经政法大学\, 统计与数学学院\, 湖北\, 武汉\, 430073）}
-#+LATEX_HEADER: \author{\CJKfamily{kai} 金 \enspace 林 \\ \CJKfamily{kai} 中南财经政法大学统计与数学学院 \\ jinlin82@gmail.com}
+#+LATEX_HEADER: \author{\CJKfamily{kai} 金 \enspace 林 \\ \CJKfamily{kai} 中南财经政法大学统计系 \\ jinlin82@qq.com}
 
-#+BEAMER_INNER_THEME: rounded [shadow]
-#+BEAMER_OUTER_THEME: infolines
+
+#+BEAMER_HEADER: \usetheme{default}
+#+BEAMER_HEADER: \useinnertheme[shadow]{rounded}
+#+BEAMER_HEADER: \useoutertheme{infolines}
 #+BEAMER_HEADER: \usecolortheme{seahorse}
 #+BEAMER_HEADER: \setbeamercolor{frametitle}{fg=Blue, bg=white}
 #+BEAMER_HEADER: \setbeamercolor{titlelike}{parent=structure}
 #+BEAMER_HEADER: \setbeamertemplate{caption}[numbered]
 #+BEAMER_HEADER: \setbeamertemplate{section in toc shaded}[default][50]
 #+BEAMER_HEADER: \setbeamertemplate{frametitle continuation}[from second][(续)] % 改变
+#+BEAMER_HEADER: \setbeamertemplate{subsection in toc shaded}[default][20]
+# +BEAMER_HEADER: \setbeamertemplate{section in toc}[circle]
+#+BEAMER_HEADER: \setbeamertemplate{subsection in toc}[square]
 #+BEAMER_HEADER: \logo{\includegraphics[height=0.6cm,width=0.6cm]{znufelogo.jpg}}
 #+BEAMER_HEADER: \setbeamercovered{transparent}
 #+BEAMER_HEADER: \setCJKmainfont[BoldFont={* Bold}]{Microsoft YaHei}
-#+BEAMER_HEADER: \usefonttheme[stillsansserifsmall,stillsansseriflarge]{serif}
+#+BEAMER_HEADER: \usefonttheme[onlylarge]{structuresmallcapsserif}
+#+BEAMER_HEADER: \usefonttheme[onlymath]{serif}
 #+BEAMER_HEADER: \setbeamertemplate{frametitle}{\bfseries\insertframetitle\par\vskip-6pt}
+
 #+BEAMER_HEADER: \AtBeginSection[]
 #+BEAMER_HEADER: {
 #+BEAMER_HEADER: \setcounter{tocdepth}{2}
 #+BEAMER_HEADER: \frame[shrink=5]{\tableofcontents[currentsection, hideothersubsections]}
+#+BEAMER_HEADER: }
+#+BEAMER_HEADER: \AtBeginSubsection[] % Do nothing for \subsection*
+#+BEAMER_HEADER: {
+#+BEAMER_HEADER: \begin{frame}<beamer>
+#+BEAMER_HEADER: \frametitle{}
+#+BEAMER_HEADER: \Large \tableofcontents[currentsubsection,sectionstyle=hide/hide, subsectionstyle=show/shaded/hide]
+#+BEAMER_HEADER: \end{frame}
 #+BEAMER_HEADER: }
 #+BEAMER_HEADER: \setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
 # +BEAMER_HEADER: \usepackage[orientation=landscape,size=custom,width=16,height=9.75,scale=0.5,debug]{beamerposter}
 
 # +BEAMER_HEADER: \everymath{\color{blue}}
 #+BEAMER_HEADER: \everydisplay{\color{blue}}
-#+BEAMER_HEADER: \author[金\; 林(中南财经政法大学统计与数学学院)]{\CJKfamily{kai} 金 \enspace 林 \\ 中南财经政法大学统计与数学学院 \\ jinlin82@gmail.com}
+#+BEAMER_HEADER: \author[金\; 林(中南财经政法大学统计系)]{\CJKfamily{kai} 金 \enspace 林 \\ 中南财经政法大学统计系 \\ jinlin82@qq.com}
 
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="markdown.css"/>
 #+HTML_MATHJAX: tagside: right 
 #+HTML_MATHJAX: cancel.js noErrors.js
 
-#+AUTHOR:  金 \nbsp 林 \\ 中南财经政法大学统计与数学学院 \\ jinlin82@gmail.com
-#+EMAIL: jinlin82@gmail.com
-#+DATE: 2014年9月
+#+AUTHOR:  金 \nbsp 林 \\ 中南财经政法大学统计系 \\ jinlin82@qq.com
+#+EMAIL: jinlin82@qq.com
+# +DATE: 2014年9月10日
 #+OPTIONS: H:3 toc:t num:4 LaTeX:nil ^:{} email:nil tex:t author:nil arch:nil DATE:t
+#+TITLE:  Python 基础
 
-#+TITLE: 学习笔记
+#+PROPERTY: header-args :tangle yes
