@@ -685,6 +685,9 @@ set timeout timeoutlen=1500
     2. auto-insert-mode
     3. clipper.el
     4. yasnippet
+** 注意事项
+   1. bigctrl 可能与Asclip和ViaTc可能有冲突，不启动
+   2. BigCtrl 与 Fence 冲突
 * 文件整理与同步
 ** 工具简介
    1. org-mode
