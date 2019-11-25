@@ -322,6 +322,17 @@ link-citations: true
       kable函数中加入 ~longtable = TRUE, booktabs = TRUE, linesep=""~ 选项
    3. 且即使加入上面选项，多页表格中表头不能自动重复，需要额外使用 kableExtra 包
       才能达到相同的效果
+** 图的格式问题
+   1. html和word不支持pdf格式图片，因此，dev=c("png","cairo_pdf"),
+   2. out.width单位一致 out.width="95%"
+** 表格导出问题
+   1. kableextra 不支持 word，因此生成word时不能使用 kableextra
+
+* Bookdown 相关问题
+** 存在的问题：
+   1. gitbook 参考文献不支持中文关键字
+   2. 把合并的rmd文件保存为bak文件
+
 * 参考文献管理
 ** 参考文献管理软件 Jabref
 *** 功能
@@ -525,6 +536,9 @@ J = F^2  = B^3^2   = A^^3^2
     - magit 中不支持，可以使用 ~git ls-files~ 命令，但在 cmd 中使用时，中文名会乱
       码，经过设置后，可以在 ~git-bash~ 中使用。
     - neotree中可以显示
+*** Git合并特定commits 到另一个分支
+    1. git cherry-pick
+
 ** Github
 *** 注册安装
     1. 注册，网页操作
@@ -681,10 +695,19 @@ set timeout timeoutlen=1500
      6. 修改AHK文件
      7. 修改 lisp-org 文件夹为如 list-org-9.1.9, 以防止emacs默认加载安装包的org，要使得其加载 elpa里面的版本
 ** Emacs template
-    1. Abbrev mode
-    2. auto-insert-mode
-    3. clipper.el
-    4. yasnippet
+*** 可用的包
+     1. Abbrev mode
+     2. auto-insert-mode
+     3. clipper.el
+     4. yasnippet
+     5. yankpad
+     6. https://github.com/chrisbarrett/skeletor.el
+*** TODO 任务需求
+    1. 根据创建的新文件类型自动插入内容
+    2. 文件类型模版
+    3. 项目模版
+*** 解决方案
+
 ** 注意事项
    1. bigctrl 可能与Asclip和ViaTc可能有冲突，不启动
    2. BigCtrl 与 Fence 冲突
@@ -743,6 +766,7 @@ cat("AIC =", AIC(my.lmer))
 my.lmer <-  lmer(y ~ x + a + x * a + (1 + x | unit), data = simple.df)
 summary(my.lmer) 
 #+END_SRC
+
 ** MSGARCH
 
 #+BEGIN_SRC R
@@ -755,6 +779,7 @@ summary(my.lmer)
   summary(fit.ml)
   
 #+END_SRC
+
 * Math
 ** Math in MS Word
    1. Word’s first math editing facility was the EQ field.
@@ -808,6 +833,10 @@ summary(my.lmer)
 ** rmarkdown 转化为 word 公式处理
    1. 一般latex代码直接转换成了 Office Math
    2. 复杂latex代码转换不了直接以latex代码在 word 中，可以先使用mathtype转化为mathtype公式再转换为Office Math
+** Online latex math editor
+   1. https://www.codecogs.com/latex/eqneditor.php
+   2. https://hostmath.com/
+
 * 移动版worktools注意事项
 ** 基本要求
    1. 盘符为H(start.bat, changedriver.bat)
@@ -824,6 +853,12 @@ summary(my.lmer)
 ** 注意
    1. 直接用bat文件拷贝fonts文件安装字体会出错，特别是字体已存在的时候
    2. git项目文件夹要把 .git 隐藏文件夹拷进去，才有项目信息
+
+* Latex
+** Where do I place my own .sty or .cls files, to make them available to all my .tex files?
+   1. 放入 C:\texlive\texmf-local\tex\latex\local 中
+   2. 运行 texhash
+
 * 参考文献                                                           :ignore:
 要有文字，否则会出错参考文献1 [[cite:WangGG2014]]， 参考文献2  \cite{Ohishi2009535}
 #+BEAMER: \begin{frame}[allowframebreaks] \frametitle{参考文献}  \footnotesize
@@ -833,10 +868,9 @@ summary(my.lmer)
 
 #+BEAMER: \end{frame}
 
-
 * Export Configuration 					   :noexport:ARCHIVE:
-#+LATEX_CLASS_OPTIONS: [11pt,xcolor=dvipsnames,aspectratio=43,hyperref={bookmarksdepth=4}]
-# +LATEX_CLASS_OPTIONS: [UTF8,a4paper,12pt]{ctexart}  % Latex 去掉上面的语句，加上本语句
+# +LATEX_CLASS_OPTIONS: [11pt,xcolor=dvipsnames,aspectratio=43,hyperref={bookmarksdepth=4}]
+#+LATEX_CLASS_OPTIONS: [UTF8,a4paper,12pt]{ctexart}  % Latex 去掉上面的语句，加上本语句
 #+LaTeX_HEADER_EXTRA: % -------------------------- Document Title -----------------------------
 #+LATEX_HEADER_EXTRA: \usepackage{titling}
 #+LATEX_HEADER_EXTRA: \pretitle{\begin{center}\vskip -1em\Large\textbf}
