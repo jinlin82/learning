@@ -711,6 +711,9 @@ set timeout timeoutlen=1500
 ** 注意事项
    1. bigctrl 可能与Asclip和ViaTc可能有冲突，不启动
    2. BigCtrl 与 Fence 冲突
+** TODO 自己配置spaceline icons
+   1. https://github.com/domtronn/all-the-icons.el/wiki/Mode-Line
+   2. https://github.com/domtronn/spaceline-all-the-icons.elc
 * 文件整理与同步
 ** 工具简介
    1. org-mode
@@ -840,19 +843,20 @@ summary(my.lmer)
 * 移动版worktools注意事项
 ** 基本要求
    1. 盘符为H(start.bat, changedriver.bat)
-   2. 设置PATH,设置时使用32位程序(emacs, jre, R)
+   2. 设置PATH,设置时使用64位程序(emacs, jre, R)
    3. 运行 mobile.exe
 ** Emacs init 文件修改
    1. 把所有文件中的C:\换成H:\
    2. face.el 中字体设置：要保证Consolas字体和微软雅黑字体存在，否则注释掉 cnfonts 部分，根据系统字体情况(如xp系统)设置 set-default-attribute 和 init-msyh 打开
    3. basic.el中设置 color-theme
-   4. 公开场所不显示 org-agenda
+   4. 公开场所不显示 org-agenda(使用(delete window))
    5. 减少加载文件，加快速度
 ** Vimrc 文件设置
    1. 要保证Consolas字体和幼圆字体存在，否则会出错
 ** 注意
    1. 直接用bat文件拷贝fonts文件安装字体会出错，特别是字体已存在的时候
    2. git项目文件夹要把 .git 隐藏文件夹拷进去，才有项目信息
+   3. 要同步org文件，否则org设置文件会出错
 
 * Latex
 ** Where do I place my own .sty or .cls files, to make them available to all my .tex files?
