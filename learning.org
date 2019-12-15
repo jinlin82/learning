@@ -332,6 +332,11 @@ link-citations: true
 ** 存在的问题：
    1. gitbook 参考文献不支持中文关键字
    2. 把合并的rmd文件保存为bak文件
+** Rstudio 生成 bookdown pdf 步骤
+   1. 点击菜单 build -> config build tools...
+   2. Buildtools: Website
+   3. 注意site directory 要设置为 index.rmd 所在的文件夹
+   4. 然后点击右上角的build按钮，然后点击 build book 的下拉按钮
 
 * 参考文献管理
 ** 参考文献管理软件 Jabref
