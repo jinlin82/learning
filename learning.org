@@ -575,12 +575,18 @@ J = F^2  = B^3^2   = A^^3^2
     3. 贡献者修改后 push 到贡献者的fork
     4. 向 owner 提交 pull request
     5. 贡献者 sync with owner's master [[https://stackoverflow.com/questions/7244321/how-do-i-update-a-github-forked-repository]]
+** 增加 gitee 支持
+   1. 注册
+   2. gitee 网站新建项目(注意不要自动生成readme)
+   3. magit-remote-add gitee 项目网址
+   4. 设置 upstream 为 gitee
+   5. 注意 Merge 与 Push
+
 ** Emacs + Git
    1. helm-github-stars
    2. github-stars-list
    3. Magit
    4. Magithub: Magit 配合 github 使用
-
 * Vim
 ** 基础
    1. normal mode，edit mode， visual mode
