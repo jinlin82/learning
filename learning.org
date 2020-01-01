@@ -874,8 +874,16 @@ summary(my.lmer)
    1. 放入 C:\texlive\texmf-local\tex\latex\local 中
    2. 运行 texhash
 
+* 编辑器比较与选择
+  1. Emacs
+  2. Vim
+  3. Vscode
+     1. 最平衡，一个bug，Terminal不能输入中文
+  4. Sublime
+  5. Notepad++
+
 * 参考文献                                                           :ignore:
-要有文字，否则会出错参考文献1 [[cite:WangGG2014]]， 参考文献2  \cite{Ohishi2009535}
+要有文字，否则会出错参考文献1 [[cite:WangGG2014]]， (这种方式影响emacs性能)。参考文献2  \cite{Ohishi2009535}
 #+BEAMER: \begin{frame}[allowframebreaks] \frametitle{参考文献}  \footnotesize
 
 # \bibliography{Bibfile}  \bibliographystyle{GBT7714-2005N} % 使用该注释让org-ref找到本地bib文件
