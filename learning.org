@@ -1,4 +1,137 @@
-* Econometrics
+* 移动版worktools注意事项
+** 基本要求
+   1. 盘符为H(start.bat, changedriver.bat)
+   2. 设置PATH,设置时使用64位程序(emacs, jre, R)
+   3. 运行 mobile.exe
+** Emacs init 文件修改
+   1. 把所有文件中的C:\换成H:\
+   2. face.el 中字体设置：要保证Consolas字体和微软雅黑字体存在，否则注释掉 cnfonts 部分，根据系统字体情况(如xp系统)设置 set-default-attribute 和 init-msyh 打开
+   3. basic.el中设置 color-theme
+   4. 公开场所不显示 org-agenda(使用(delete window))
+   5. 减少加载文件，加快速度
+** Vimrc 文件设置
+   1. 要保证Consolas字体和幼圆字体存在，否则会出错
+** 注意
+   1. 直接用bat文件拷贝fonts文件安装字体会出错，特别是字体已存在的时候
+   2. git项目文件夹要把 .git 隐藏文件夹拷进去，才有项目信息
+   3. 要同步org文件，否则org设置文件会出错
+
+* 文件整理与同步
+** 工具简介
+   1. org-mode
+   2. Rmd
+   3. Trello: 用于手机快速记录，各种设备同步
+   4. Github
+   5. GoosSync, 坚果云, foldersync
+   6. Evernote
+* 统计
+** 事件分析法
+*** 概念
+    1. An Event study is a statistical method to assess the impact of an event
+       on the value of a firm.
+       1. For example, the announcement of a merger between two business
+          entities can be analyzed to see whether investors believe the merger
+          will create or destroy value.
+    2. The basic idea is to find the abnormal return attributable to the event
+       being studied by adjusting for the return that stems from the price
+       fluctuation of the market as a whole.
+    3. Event studies are thus common to various research areas, such as
+       accounting and finance, management, economics, marketing, information
+       technology, law, and political science.
+    4. the breadth of the studied event types:
+       1. economy-wide events (i.e., market shocks, such as regulatory changes,
+          or catastrophic events)
+       2. corporate events, such as mergers and acquisitions, earnings
+          announcements, debt or equity issues, corporate reorganisations,
+          investment decisions and corporate social responsibility
+*** 实证方法
+    1. Based on an *estimation window* prior to the analyzed event, the method
+       estimates what the normal stock returns of the affected firm(s) should
+       be at the day of the event and several days prior and after the event
+       (i.e., during the *event window* ). Thereafter, the method deducts this
+       'normal returns' from the 'actual returns' to receive 'abnormal returns'
+       attributed to the event.
+    2. may differ with respect to their specification of normal returns. The
+       most common model for normal returns is the 'market model'.
+    3.  Following this model, the analysis implies to use an estimation window
+        (typically sized 120 days) prior to the event to derive the typical
+        relationship between the firm's stock and a reference index through a
+        regression analysis. Based on the regression coefficients, the normal
+        returns are then projected and used to calculate the abnormal
+        returns. Alternative models for the normal returns include the CAPM
+        model, or more simplistic approaches such as mean returns.
+*** 异常收益率计算步骤
+    - For the most common model, the 'market model', the steps are as follows:
+      1. Retrieve and match time series of financial returns of the focal firm's
+         stock and its reference index.
+      2. For each event, identify the sequences of firm and market returns that
+         need to be included in the estimation window.
+      3. Using regression analysis, calculate the alpha, beta and sigma
+         coefficients that explicate the typical relationship between the stock
+         and the reference index.
+      4. With these three parameters, predict the 'normal returns' for all days
+         of the event window.
+      5. Deducting these 'normal returns' from the 'actual returns' gives you
+         the 'abnormal returns' which are the metrics of interest.
+*** 异常收益率检验
+    1. The most common test, the t-test, divides the abnormal returns through
+       the root mean square error of the regression. Resulting t-values need
+       then to be compared with the critical values of the Student's
+       t-distribution.
+*** 软件实现
+    1. Single event studies can easily be implemented with MS Excel
+    2. event studies covering multiple events need to be built using statistical
+       software packages (e.g., STATA, Matlab).
+    3. Besides of these multi-use tools, there are solutions tailored to
+       conducting event study analyses (e.g., Eventus, Event Study Metrics,
+       EventStudyTools).
+** Stratified sampling vs. Quota sampling
+   - Quota sampling is a method for selecting survey participants that is a
+     non-probabilistic version of stratified sampling.
+
+** Gauss-Newton method
+
+** 基于联合分析的市场定价策略
+*** 均匀正交设计
+*** 打分效用
+    1. 求平均值得到效用值
+*** 联合分析（Conjoint Analysis）
+    - online conjoint analysis (Sawtooth software)
+    - Sawtooth Software, Inc. is a computer software company based in Orem,
+      Utah, USA. The company provides survey software tools, and specializes in
+      conjoint analysis.
+**** 输入
+     1. 属性
+     2. 水平：互斥；属性水平应具有明确和清晰的含义
+     3. 受访者
+     4. 先验信息
+**** 输出
+     1. 效用值：等距数据，可加但不可比，但0没有绝对值的意义
+     2. 重要性：等比数据
+     3. 市场模拟：模拟竞争市场的情景
+**** 种类
+     1. 联合价值分析(CVA)
+     2. 自适应联合分析(ACA)
+     3. 基于选择的联合分析(CBC)
+     4. 自适应的基于选择的联合分析(ACBC)
+     5. 菜单形式的联合分析(MBC)
+*** 基于选择的联合分析(CBC)(离散选择模型，二分类因变量模型)
+**** effect-coding
+
+*** 问题
+    1. 实际选择与填写问卷有较大的偏差
+    2. 贝叶斯估计方法(why?)与极大似然估计的差异
+    3. 抽样问题
+    4. 系数的显著性
+    5. 实验设计在市场研究中的作用
+** interpolate, extrapolate, imputation
+    1. interpolate: 插值
+    2. extrapolate: 外推
+    3. imputation: 插补(针对缺失值)
+** Markov chain
+   1. what is Markov chain
+   2. how to simulate Markov chain
+* 计量经济学Econometrics
 ** 虚拟变量
 *** 虚拟变量的概念 
      - 虚拟变量是指取值为 0 和 1 的变量。
@@ -101,242 +234,66 @@
 *** 例子
 ** 联立方程模型
 
-* Unorganized
-** 事件分析法
-*** 概念
-    1. An Event study is a statistical method to assess the impact of an event
-       on the value of a firm.
-       1. For example, the announcement of a merger between two business
-          entities can be analyzed to see whether investors believe the merger
-          will create or destroy value.
-    2. The basic idea is to find the abnormal return attributable to the event
-       being studied by adjusting for the return that stems from the price
-       fluctuation of the market as a whole.
-    3. Event studies are thus common to various research areas, such as
-       accounting and finance, management, economics, marketing, information
-       technology, law, and political science.
-    4. the breadth of the studied event types:
-       1. economy-wide events (i.e., market shocks, such as regulatory changes,
-          or catastrophic events)
-       2. corporate events, such as mergers and acquisitions, earnings
-          announcements, debt or equity issues, corporate reorganisations,
-          investment decisions and corporate social responsibility
-*** 实证方法
-    1. Based on an *estimation window* prior to the analyzed event, the method
-       estimates what the normal stock returns of the affected firm(s) should
-       be at the day of the event and several days prior and after the event
-       (i.e., during the *event window* ). Thereafter, the method deducts this
-       'normal returns' from the 'actual returns' to receive 'abnormal returns'
-       attributed to the event.
-    2. may differ with respect to their specification of normal returns. The
-       most common model for normal returns is the 'market model'.
-    3.  Following this model, the analysis implies to use an estimation window
-        (typically sized 120 days) prior to the event to derive the typical
-        relationship between the firm's stock and a reference index through a
-        regression analysis. Based on the regression coefficients, the normal
-        returns are then projected and used to calculate the abnormal
-        returns. Alternative models for the normal returns include the CAPM
-        model, or more simplistic approaches such as mean returns.
-*** 异常收益率计算步骤
-    - For the most common model, the 'market model', the steps are as follows:
-      1. Retrieve and match time series of financial returns of the focal firm's
-         stock and its reference index.
-      2. For each event, identify the sequences of firm and market returns that
-         need to be included in the estimation window.
-      3. Using regression analysis, calculate the alpha, beta and sigma
-         coefficients that explicate the typical relationship between the stock
-         and the reference index.
-      4. With these three parameters, predict the 'normal returns' for all days
-         of the event window.
-      5. Deducting these 'normal returns' from the 'actual returns' gives you
-         the 'abnormal returns' which are the metrics of interest.
-*** 异常收益率检验
-    1. The most common test, the t-test, divides the abnormal returns through
-       the root mean square error of the regression. Resulting t-values need
-       then to be compared with the critical values of the Student's
-       t-distribution.
-*** 软件实现
-    1. Single event studies can easily be implemented with MS Excel
-    2. event studies covering multiple events need to be built using statistical
-       software packages (e.g., STATA, Matlab).
-    3. Besides of these multi-use tools, there are solutions tailored to
-       conducting event study analyses (e.g., Eventus, Event Study Metrics,
-       EventStudyTools).
-** Stratified sampling vs. Quota sampling
-   - Quota sampling is a method for selecting survey participants that is a
-     non-probabilistic version of stratified sampling.
+* 代码
+** lme simulation code
 
-** Gauss-Newton method
+#+BEGIN_SRC R
+## prepare
+rm(list = ls())
+set.seed(2345)
 
+N <- 30
+unit.df <- data.frame(unit = c(1:N), a = rnorm(N))
 
-** 如何把 html source 转化为 org mode
-*** 目的
-    - wikipedia里面网页的source代码里面有公式的tex代码，不用输入 tex 公式
-*** 方法
-    - 删除所有的 html tags， 除了包含tex公式的部分
-** Python
-*** IPython + Emacs
+head(unit.df, 3)
+unit.df <-  within(unit.df, {
+  E.alpha.given.a <-  1 - 0.15 * a
+  E.beta.given.a <-  3 + 0.3 * a
+})
+head(unit.df, 3)
 
-** 基于联合分析的市场定价策略
-*** 均匀正交设计
-*** 打分效用
-    1. 求平均值得到效用值
-*** 联合分析（Conjoint Analysis）
-    - online conjoint analysis (Sawtooth software)
-    - Sawtooth Software, Inc. is a computer software company based in Orem,
-      Utah, USA. The company provides survey software tools, and specializes in
-      conjoint analysis.
-**** 输入
-     1. 属性
-     2. 水平：互斥；属性水平应具有明确和清晰的含义
-     3. 受访者
-     4. 先验信息
-**** 输出
-     1. 效用值：等距数据，可加但不可比，但0没有绝对值的意义
-     2. 重要性：等比数据
-     3. 市场模拟：模拟竞争市场的情景
-**** 种类
-     1. 联合价值分析(CVA)
-     2. 自适应联合分析(ACA)
-     3. 基于选择的联合分析(CBC)
-     4. 自适应的基于选择的联合分析(ACBC)
-     5. 菜单形式的联合分析(MBC)
-*** 基于选择的联合分析(CBC)(离散选择模型，二分类因变量模型)
-**** effect-coding
+library(mvtnorm)
+q = 0.2
+r = 0.9
+s = 0.5
+cov.matrix <- matrix(c(q^2, r * q * s, r * q * s, s^2), nrow = 2,
+                     byrow = TRUE)
+random.effects <- rmvnorm(N, mean = c(0, 0), sigma = cov.matrix)
+unit.df$alpha <- unit.df$E.alpha.given.a + random.effects[, 1]
+unit.df$beta <- unit.df$E.beta.given.a + random.effects[, 2]
+head(unit.df, 3)
 
-*** 问题
-    1. 实际选择与填写问卷有较大的偏差
-    2. 贝叶斯估计方法(why?)与极大似然估计的差异
-    3. 抽样问题
-    4. 系数的显著性
-    5. 实验设计在市场研究中的作用
-** interpolate, extrapolate, imputation
-    1. interpolate: 插值
-    2. extrapolate: 外推
-    3. imputation: 插补(针对缺失值)
-** Markov chain
-   1. what is Markov chain
-   2. how to simulate Markov chain
-** latex listing 包中 R 代码 多个 # 出错
-   1. org文件R代码修改 org.el 中 lstset 里面的 texcl= true
-   2. Rmd文件R代码修改 default-1.17.0.2.tex 中lstset 里面的 texcl= true
- 
- 
-  [[file:c:/Works/Working_Paper/2019-01-shibor-msgarch/ms-garch.Rmd][file:c:/Works/Working_Paper/2019-01-shibor-msgarch/ms-garch.Rmd]]
-** R 更新步骤：
-   1. 下载并安装新版本R安装文件（注意：一般不要下载最新版本，因为可能有些包没有更新不兼容）
-   2. 把旧版本中 library 复制到新版本 library 中，注意 不要替换
-   3. update 所有 packages(不要更新 rmarkdown 和 bookdown，因为已经修改), 可能需要几次
-   4. 把initial file.(etc文件夹)拷入新版中install.packages(file.choose(), repos = NULL, type="binary")
-   5. 更新环境变量名
-   6. 替换 rmarkdown 包中的 default-1.17.0.2.tex 文件
-   7. bookdown 源代码已修改，需remove 后再安装新编译版本
-* JavaScript
-** JavaScript 语言
-** Node.js
-** 工具支持
-   1. js2-mode
-   2. js-commit
-   3. indium(存在问题)
+J <- 30
+M = J * N  #Total number of observations
+x.grid = seq(-4, 4, by = 8/J)[0:30]
 
-* Rmarkdown 写作相关
-** Markdown 中文换行输出后有空格问题解决方法
-   - 这是很长时间以来都存在的一个问题。
-   - 现在可以通过pandoc中的 east_asian_line_breaks 这个 extensions 来解决。
-   - 可以在rmd的yaml部分添加
-word_document: 
-    md_extensions: +east_asian_line_breaks
-** Rmarkdown docx 输出模板配置（需要更新）
-   1. 配置 word 模板文件，具体步骤见 [[https://rmarkdown.rstudio.com/articles_docx.html]]
-   2. 其中需要配置样式的格式，比较复杂的是标题自动编号的配置，需要用到多级列表，具体为
-      1. 图标 多级列表 - 定义新的多级列表， 点击下面的更多，设置相关，其中关键在于 *将级别链接到样式*
-   3. 还需要配置公式，图，表等的格式
-   4. 将配置好的word文档放在rmd文件夹中，配置rmd文件yaml header， 在word输出选项下增加： reference_docx: word-styles-01.docx
-** R 中修改package的源代码并重新安装的方法
-   1. 安装 devtools 包
-   2. 下载需要修改包的源代码压缩包，解压修改代码
-   3. 利用 devtools 包里面的 ~load_all~ 函数 和 ~remove.packages~ 函数进行调试效果
-   4. 利用 ~R CMD INSTALL --build packagename~ 把源代码文件夹build为 Windows Binary 文件
-   5. 该Binary文件可使用 ~install.packages(file.choose(), repos = NULL,
-      type="binary")~ ， 安装之前可能需要先remove该package并重启R
-** Rmarkdown 中交叉引用解决方法
-   1. 参考文献使用 pandoc-citeproc
-   2. 公式、图、表和章节交叉引用有两种解决方案
-      1. 使用 pandoc-crossref: 优点功能强大，可定制性强，引用语法简单，缺点是图只支持 markdown，
-         不支持Rmarkdown，也即Rmarkdown对图片的处理不是生成原始markdown，所以支持不好
-      2. 使用 bookdown：支持Rmarkdown，缺点是定制性差，引用语法相对繁琐一点
-   3. 目前建议: 公式使用 pandoc-crossref, 图和表使用bookdown，章节目前由于没有使用经验待定
-   4. bookdown 中引用的问题：
-      1. 都是带有章节的引用，例如 图 3.2 ，图表编号后有一个冒号，与目前中文习惯不一致
-      2. 解决方法：修改 bookdown 源代码，并重新 build 并安装，具体方法见 R 中修改package的源代码并重新安装的方法
-      3. html.R文件具体修改的代码（可以在bookdown源代码中html.R通过查找 "###" 定位），具体代码为：
-#+BEGIN_SRC R :eval no
-seq_numbering = TRUE, 
-  ### 增加了引用格式选项 seq_numbering=T，统一输出，=F 按章输出
-x = resolve_refs_html(x, global = seq_numbering)  ### 增加了引用格式选项 seq_numbering=T，统一输出，=F 按章输出
-paste0(label_prefix(type), num, '&nbsp;&nbsp;&nbsp;')  #### 增加 表数字 后面的空格
+within.unit.df <-  data.frame(unit = sort(rep(c(1:N), J)), j = rep(c(1:J),
+                              N), x =rep(x.grid, N))
+flat.df = merge(unit.df, within.unit.df)
+
+flat.df <-  within(flat.df, y <-  alpha + x * beta + 0.75 * rnorm(n = M))
+simple.df <-  flat.df[, c("unit", "a", "x", "y")]
+head(simple.df, 3)
+
+library(lme4)
+my.lmer <-  lmer(y ~ x + (1 + x | unit), data = simple.df)
+cat("AIC =", AIC(my.lmer))
+my.lmer <-  lmer(y ~ x + a + x * a + (1 + x | unit), data = simple.df)
+summary(my.lmer) 
 #+END_SRC
-** 使用bookdown交叉引用步骤
-   1. 安装修改后的 bookdown ，
-   2. 增加 _bookdown.yaml，修改英文 Figure Table 为图和表
-   3. 修改Rmd文件的header为：
 
-#+BEGIN_SRC r :eval no
----
-title: "基于MS-GARCH模型的上海银行同业拆借利率波动性分析"
-author: "Jin"
-date: "2019-01-14"
-output:
-  bookdown::html_document2:
-    number_sections: true
-    seq_numbering: true
-    fig_caption: true
-    highlight: haddock
-    theme: null
-    md_extensions: +east_asian_line_breaks
-    keep_md: true
-    toc: false
-    pandoc_args: ["--filter", "pandoc-crossref", "-M", "eqnPrefix="]
-  pdf_document:
-    keep_tex: yes
-    latex_engine: xelatex
-    md_extensions: +east_asian_line_breaks
-    pandoc_args: ["--listing", "--filter", "pandoc-crossref"]
-  bookdown::word_document2:
-    fig_caption: true
-    reference_docx: abc.docx
-    md_extensions: +east_asian_line_breaks
-    pandoc_args: ["--filter", "pandoc-crossref"]
-css: markdown.css
-autoEqnLabels: true
-eqnPrefixTemplate: ($$i$$)
-linkReferences: true
-bibliography: Bibfile.bib
-csl: chinese-gb7714-2005-numeric.csl
-link-citations: true
----
+** MSGARCH
+
+#+BEGIN_SRC R
+  library(MSGARCH)
+  spec1 <- CreateSpec(distribution.spec = list(distribution = c("norm", "norm")),
+                      switch.spec = list(do.mix=TRUE))
+  summary(spec1)
+  data("dem2gbp", package = "MSGARCH")
+  fit.ml <- FitML(spec = spec1, data=dem2gbp)
+  summary(fit.ml)
+  
 #+END_SRC
-** bookdown 和 rmarkdown 在LaTeX默认输出表格设置上有区别
-   1. rmarkdown 处理更优秀
-   2. 使用 bookdown::pdf_document2: 时，为达到与 rmarkdown 相同的效果，必须在
-      kable函数中加入 ~longtable = TRUE, booktabs = TRUE, linesep=""~ 选项
-   3. 且即使加入上面选项，多页表格中表头不能自动重复，需要额外使用 kableExtra 包
-      才能达到相同的效果
-** 图的格式问题
-   1. html和word不支持pdf格式图片，因此，dev=c("png","cairo_pdf"),
-   2. out.width单位一致 out.width="95%"
-** 表格导出问题
-   1. kableextra 不支持 word，因此生成word时不能使用 kableextra
-
-* Bookdown 相关问题
-** 存在的问题：
-   1. gitbook 参考文献不支持中文关键字
-   2. 把合并的rmd文件保存为bak文件
-** Rstudio 生成 bookdown pdf 步骤
-   1. 点击菜单 build -> config build tools...
-   2. Buildtools: Website
-   3. 注意site directory 要设置为 index.rmd 所在的文件夹
-   4. 然后点击右上角的build按钮，然后点击 build book 的下拉按钮
 
 * 参考文献管理
 ** 参考文献管理软件 Jabref
@@ -443,6 +400,221 @@ graph LR
        =helm-bibtex-with-local-bibliography= 函数
 
 *** 利用 pandoc 处理交叉引用
+
+* 编辑器比较与选择
+  1. Emacs
+  2. Vim
+  3. Vscode
+     1. 最平衡，一个bug，Terminal不能输入中文
+  4. Sublime
+  5. Notepad++
+
+* Vim
+** 基础
+   1. normal mode，edit mode， visual mode
+   2. 使用冒号输入命令
+   3. 光标移动hjkl
+   4. 翻页C-u，C-d
+** Vim复制粘贴
+   1. GVim 的话，CTRL+INSERT 复制到windows剪贴板，SHIFT+INSERT从windows剪贴板粘贴。
+   2. 直接 Ctrl-c，Ctrl-x，Ctrl-v
+   3. 在可视模式下，y，p复制粘贴只能在vim里面进行，不能到系统剪切板，可视模式下到剪切板应分别使用 ~"+y~ 和 ~+p~
+** Vim 查找替换
+   1. 查找  /
+   2. 替换 ~：%s/查找内容 /替换内容 /g~ ，如需一个个确认，可以在g后面直接连上c
+** Vim 注释代码-NERDcommenter
+   1. 安装 NERDCommenter
+   2. 设置 vimtc 文件
+
+#+BEGIN_SRC R :eval no
+let mapleader=","
+set timeout timeoutlen=1500
+#+END_SRC
+
+   3. =,cc= 注释当前行， =,c<space>= Toggle 注释
+
+* Rmarkdown 写作相关
+** Markdown 中文换行输出后有空格问题解决方法
+   - 这是很长时间以来都存在的一个问题。
+   - 现在可以通过pandoc中的 east_asian_line_breaks 这个 extensions 来解决。
+   - 可以在rmd的yaml部分添加
+word_document: 
+    md_extensions: +east_asian_line_breaks
+** Rmarkdown docx 输出模板配置（需要更新）
+   1. 配置 word 模板文件，具体步骤见 [[https://rmarkdown.rstudio.com/articles_docx.html]]
+   2. 其中需要配置样式的格式，比较复杂的是标题自动编号的配置，需要用到多级列表，具体为
+      1. 图标 多级列表 - 定义新的多级列表， 点击下面的更多，设置相关，其中关键在于 *将级别链接到样式*
+   3. 还需要配置公式，图，表等的格式
+   4. 将配置好的word文档放在rmd文件夹中，配置rmd文件yaml header， 在word输出选项下增加： reference_docx: word-styles-01.docx
+** R 中修改package的源代码并重新安装的方法
+   1. 安装 devtools 包
+   2. 下载需要修改包的源代码压缩包，解压修改代码
+   3. 利用 devtools 包里面的 ~load_all~ 函数 和 ~remove.packages~ 函数进行调试效果
+   4. 利用 ~R CMD INSTALL --build packagename~ 把源代码文件夹build为 Windows Binary 文件
+   5. 该Binary文件可使用 ~install.packages(file.choose(), repos = NULL,
+      type="binary")~ ， 安装之前可能需要先remove该package并重启R
+** Rmarkdown 中交叉引用解决方法
+   1. 参考文献使用 pandoc-citeproc
+   2. 公式、图、表和章节交叉引用有两种解决方案
+      1. 使用 pandoc-crossref: 优点功能强大，可定制性强，引用语法简单，缺点是图只支持 markdown，
+         不支持Rmarkdown，也即Rmarkdown对图片的处理不是生成原始markdown，所以支持不好
+      2. 使用 bookdown：支持Rmarkdown，缺点是定制性差，引用语法相对繁琐一点
+   3. 目前建议: 公式使用 pandoc-crossref, 图和表使用bookdown，章节目前由于没有使用经验待定
+   4. bookdown 中引用的问题：
+      1. 都是带有章节的引用，例如 图 3.2 ，图表编号后有一个冒号，与目前中文习惯不一致
+      2. 解决方法：修改 bookdown 源代码，并重新 build 并安装，具体方法见 R 中修改package的源代码并重新安装的方法
+      3. html.R文件具体修改的代码（可以在bookdown源代码中html.R通过查找 "###" 定位），具体代码为：
+#+BEGIN_SRC R :eval no
+seq_numbering = TRUE, 
+  ### 增加了引用格式选项 seq_numbering=T，统一输出，=F 按章输出
+x = resolve_refs_html(x, global = seq_numbering)  ### 增加了引用格式选项 seq_numbering=T，统一输出，=F 按章输出
+paste0(label_prefix(type), num, '&nbsp;&nbsp;&nbsp;')  #### 增加 表数字 后面的空格
+#+END_SRC
+** 使用bookdown交叉引用步骤
+   1. 安装修改后的 bookdown ，
+   2. 增加 _bookdown.yaml，修改英文 Figure Table 为图和表
+   3. 修改Rmd文件的header为：
+
+#+BEGIN_SRC r :eval no
+---
+title: "基于MS-GARCH模型的上海银行同业拆借利率波动性分析"
+author: "Jin"
+date: "2019-01-14"
+output:
+  bookdown::html_document2:
+    number_sections: true
+    seq_numbering: true
+    fig_caption: true
+    highlight: haddock
+    theme: null
+    md_extensions: +east_asian_line_breaks
+    keep_md: true
+    toc: false
+    pandoc_args: ["--filter", "pandoc-crossref", "-M", "eqnPrefix="]
+  pdf_document:
+    keep_tex: yes
+    latex_engine: xelatex
+    md_extensions: +east_asian_line_breaks
+    pandoc_args: ["--listing", "--filter", "pandoc-crossref"]
+  bookdown::word_document2:
+    fig_caption: true
+    reference_docx: abc.docx
+    md_extensions: +east_asian_line_breaks
+    pandoc_args: ["--filter", "pandoc-crossref"]
+css: markdown.css
+autoEqnLabels: true
+eqnPrefixTemplate: ($$i$$)
+linkReferences: true
+bibliography: Bibfile.bib
+csl: chinese-gb7714-2005-numeric.csl
+link-citations: true
+---
+#+END_SRC
+** bookdown 和 rmarkdown 在LaTeX默认输出表格设置上有区别
+   1. rmarkdown 处理更优秀
+   2. 使用 bookdown::pdf_document2: 时，为达到与 rmarkdown 相同的效果，必须在
+      kable函数中加入 ~longtable = TRUE, booktabs = TRUE, linesep=""~ 选项
+   3. 且即使加入上面选项，多页表格中表头不能自动重复，需要额外使用 kableExtra 包
+      才能达到相同的效果
+** 图的格式问题
+   1. html和word不支持pdf格式图片，因此，dev=c("png","cairo_pdf"),
+   2. out.width单位一致 out.width="95%"
+** 表格导出问题
+   1. kableextra 不支持 word，因此生成word时不能使用 kableextra
+
+* R
+** latex listing 包中 R 代码 多个 # 出错
+   1. org文件R代码修改 org.el 中 lstset 里面的 texcl= true
+   2. Rmd文件R代码修改 default-1.17.0.2.tex 中lstset 里面的 texcl= true
+ 
+ 
+  [[file:c:/Works/Working_Paper/2019-01-shibor-msgarch/ms-garch.Rmd][file:c:/Works/Working_Paper/2019-01-shibor-msgarch/ms-garch.Rmd]]
+** R 更新步骤：
+   1. 下载并安装新版本R安装文件（注意：一般不要下载最新版本，因为可能有些包没有更新不兼容）
+   2. 把旧版本中 library 复制到新版本 library 中，注意 不要替换
+   3. update 所有 packages(不要更新 rmarkdown 和 bookdown，因为已经修改), 可能需要几次
+   4. 把initial file.(etc文件夹)拷入新版中install.packages(file.choose(), repos = NULL, type="binary")
+   5. 更新环境变量名
+   6. 替换 rmarkdown 包中的 default-1.17.0.2.tex 文件
+   7. bookdown 源代码已修改，需remove 后再安装新编译版本
+* Python
+** TODO Python 相关
+   1. Rstudio中python配置
+   2. EIN 文档阅读
+   3. EIN 中 latex 支持
+   4. elpy 文档阅读
+   5. Emacs 中 python 补全
+   6. ipynb VS Code 支持
+
+* Math
+** Math in MS Word
+   1. Word’s first math editing facility was the EQ field.
+   2. MathType and its limited edition, the Equation Editor, made math entry
+      easier and considerably more general than the EQ field by adding intuitive
+      tool bars giving access to mathematical symbols and function templates.
+   3. native Office math facility(OMML Office math markup language) introduced in Microsoft Word in 2007 and added
+      to PowerPoint, OneNote, and in Excel Text Boxes in 2010.
+   4. Design Science designed MathType, which first shipped on the Mac in 1987
+      and was released on Windows in 1990. A simplified version of MathType
+      called the Equation Editor was introduced in 1992 and has shipped as part
+      of Office on Windows and the Mac ever since.
+** Background
+   1. The old Word Equation Editor was built upon MathType.
+   2. The new Word Equation Editor is based on OMML.
+   3. A MathType-Equation is displayed as an image in Word. If you have MathType
+      installed, a separate window opens if you click to edit the
+      equation. Else, you cannot edit it. New equations (OMML) can be edited
+      directly inside the Word software.
+   4. OMML and MathML are both XML-formats. omml2mml.xsl is a file provided by Microsoft to go from OMML to MathML.
+   5. MathType uses a non-XML-structure for its equations.
+   6. MathType can import MathML equations, but not OMML.
+   7. MathType therefore requires the omml2mml.xsl file to generate MathML first.
+   8. On a side note, MathType does not always preserve character styles (bold/italic) when exporting to MathML/TeX.
+   9. To support all equation-types in Word, and to improve the performance of conversion, transpect is able to translate MathType to MathML.
+** Office 中数学公式的种类
+   1. EQ域：EQ field，最先使用，outdated
+   2. Microsoft Equation Editor 3.x: mathtype 的精简版，已不再用
+   3. Mathtype
+   4. Office Math(OMML, Word 2007 引入)
+   5. LaTex
+** 相互转换
+   1. Equation Editor 3.x, Office Math, Latex->Mathtype: by Mathtype
+   2. Mathtype->Latex: Mathtype
+   3. Mathtype->Equation Editor 3.x: GrindEQ
+   4. Mathtype->Office Math:
+      1. Office 365
+      2. Office 2019?
+      3. setting MathType's Cut and Copy Preferences: "namespace attr", convert, cut and paste
+      4. Mathtype' convert: "namespace attr"
+   5. Latex->Office Math:
+      1. pandoc(但是稍复杂代码不支持)
+      2. Office365, Office 2019?
+      3. Latex->Mathtype->Office Math
+   6. Office Math -> Latex:
+      1. pandoc
+      2. office math -> mathtype -> Latex
+** 使用原则，尽量使用 Office Math
+   1. Office math 输入方法： Unicode Math
+   2. Office 2019 中可以使用 Latex 输入
+** rmarkdown 转化为 word 公式处理
+   1. 一般latex代码直接转换成了 Office Math
+   2. 复杂latex代码转换不了直接以latex代码在 word 中，可以先使用mathtype转化为mathtype公式再转换为Office Math
+** Online latex math editor
+   1. https://www.codecogs.com/latex/eqneditor.php
+   2. https://hostmath.com/
+
+* Latex
+** Where do I place my own .sty or .cls files, to make them available to all my .tex files?
+   1. 放入 =C:\\texlive\\texmf-local\\tex\\latex\\local= 中
+   2. 运行 texhash
+
+* JavaScript
+** JavaScript 语言
+** Node.js
+** 工具支持
+   1. js2-mode
+   2. js-commit
+   3. indium(存在问题)
 
 * Git
 ** 版本控制(version control)
@@ -587,57 +759,6 @@ J = F^2  = B^3^2   = A^^3^2
    2. github-stars-list
    3. Magit
    4. Magithub: Magit 配合 github 使用
-* Vim
-** 基础
-   1. normal mode，edit mode， visual mode
-   2. 使用冒号输入命令
-   3. 光标移动hjkl
-   4. 翻页C-u，C-d
-** Vim复制粘贴
-   1. GVim 的话，CTRL+INSERT 复制到windows剪贴板，SHIFT+INSERT从windows剪贴板粘贴。
-   2. 直接 Ctrl-c，Ctrl-x，Ctrl-v
-   3. 在可视模式下，y，p复制粘贴只能在vim里面进行，不能到系统剪切板，可视模式下到剪切板应分别使用 ~"+y~ 和 ~+p~
-** Vim 查找替换
-   1. 查找  /
-   2. 替换 ~：%s/查找内容 /替换内容 /g~ ，如需一个个确认，可以在g后面直接连上c
-** Vim 注释代码-NERDcommenter
-   1. 安装 NERDCommenter
-   2. 设置 vimtc 文件
-
-#+BEGIN_SRC R :eval no
-let mapleader=","
-set timeout timeoutlen=1500
-#+END_SRC
-
-   3. =,cc= 注释当前行， =,c<space>= Toggle 注释
-
-* Diagram
-** Asciiart, ditaa
-   1. artist-mode
-   2. ditaa.jar
-   3. org-babel
-** Graphviz dot graph
-   1. Graphviz program
-   2. Graphviz-dot-mode
-   3. org-babel
-** Plantuml
-   1. plantuml.jar(需要java run time 环境支持)
-   2. plantuml-mode
-   3. org-babel
-** Mermaid
-   1. 安装 mermaid-filter(包含了 mermaid和mermaid-cli，需要 node.js 支持)
-   2. mermaid-mode
-   3. ob-mermaid
-   4. org-babel
-   5. pandoc markdown with mermaid-filter
-      - 生成图形，标题和引用都没有问题，但图形使用bookdown不能自动编号
-      - 主要原因是：目前使用的bookdown的图表自动编号功能，其是建立在knitr把图表
-        生成html代码格式，而不是标准的pandoc markdown插入图表用法。
-      - 更好的方式是使用pandoc的插件pandoc-crossref,但 knitr 不支持
-      - 目前的解决方法：1. 不要自动编号 2. 写 mmd文件生成图片后，使用 knitr::include_graphics 插入图片
-      - 未来解决方法：写一个 基于 python的pandoc-filter，把图片的格式统一
-   6. 注意 R的 diagramer 包支持mermaid，在Rstudio中可以直接编辑 mmd格式文件然后生成图形.
-
 * Emacs
 ** Org-mode
 *** Org sync
@@ -725,165 +846,54 @@ set timeout timeoutlen=1500
 ** TODO 自己配置spaceline icons
    1. https://github.com/domtronn/all-the-icons.el/wiki/Mode-Line
    2. https://github.com/domtronn/spaceline-all-the-icons.elc
-* 文件整理与同步
-** 工具简介
-   1. org-mode
-   2. Rmd
-   3. Trello: 用于手机快速记录，各种设备同步
-   4. Github
-   5. GoosSync, 坚果云, foldersync
-   6. Evernote
-* 代码
-** lme simulation code
+** 如何把 html source 转化为 org mode
+*** 目的
+    - wikipedia里面网页的source代码里面有公式的tex代码，不用输入 tex 公式
+*** 方法
+    - 删除所有的 html tags， 除了包含tex公式的部分
+* Diagram
+** Asciiart, ditaa
+   1. artist-mode
+   2. ditaa.jar
+   3. org-babel
+** Graphviz dot graph
+   1. Graphviz program
+   2. Graphviz-dot-mode
+   3. org-babel
+** Plantuml
+   1. plantuml.jar(需要java run time 环境支持)
+   2. plantuml-mode
+   3. org-babel
+** Mermaid
+   1. 安装 mermaid-filter(包含了 mermaid和mermaid-cli，需要 node.js 支持)
+   2. mermaid-mode
+   3. ob-mermaid
+   4. org-babel
+   5. pandoc markdown with mermaid-filter
+      - 生成图形，标题和引用都没有问题，但图形使用bookdown不能自动编号
+      - 主要原因是：目前使用的bookdown的图表自动编号功能，其是建立在knitr把图表
+        生成html代码格式，而不是标准的pandoc markdown插入图表用法。
+      - 更好的方式是使用pandoc的插件pandoc-crossref,但 knitr 不支持
+      - 目前的解决方法：1. 不要自动编号 2. 写 mmd文件生成图片后，使用 knitr::include_graphics 插入图片
+      - 未来解决方法：写一个 基于 python的pandoc-filter，把图片的格式统一
+   6. 注意 R的 diagramer 包支持mermaid，在Rstudio中可以直接编辑 mmd格式文件然后生成图形.
 
-#+BEGIN_SRC R
-## prepare
-rm(list = ls())
-set.seed(2345)
+* Bookdown 相关问题
+** 存在的问题：
+   1. gitbook 参考文献不支持中文关键字
+   2. 把合并的rmd文件保存为bak文件
+** Rstudio 生成 bookdown pdf 步骤
+   1. 点击菜单 build -> config build tools...
+   2. Buildtools: Website
+   3. 注意site directory 要设置为 index.rmd 所在的文件夹
+   4. 然后点击右上角的build按钮，然后点击 build book 的下拉按钮
 
-N <- 30
-unit.df <- data.frame(unit = c(1:N), a = rnorm(N))
 
-head(unit.df, 3)
-unit.df <-  within(unit.df, {
-  E.alpha.given.a <-  1 - 0.15 * a
-  E.beta.given.a <-  3 + 0.3 * a
-})
-head(unit.df, 3)
-
-library(mvtnorm)
-q = 0.2
-r = 0.9
-s = 0.5
-cov.matrix <- matrix(c(q^2, r * q * s, r * q * s, s^2), nrow = 2,
-                     byrow = TRUE)
-random.effects <- rmvnorm(N, mean = c(0, 0), sigma = cov.matrix)
-unit.df$alpha <- unit.df$E.alpha.given.a + random.effects[, 1]
-unit.df$beta <- unit.df$E.beta.given.a + random.effects[, 2]
-head(unit.df, 3)
-
-J <- 30
-M = J * N  #Total number of observations
-x.grid = seq(-4, 4, by = 8/J)[0:30]
-
-within.unit.df <-  data.frame(unit = sort(rep(c(1:N), J)), j = rep(c(1:J),
-                              N), x =rep(x.grid, N))
-flat.df = merge(unit.df, within.unit.df)
-
-flat.df <-  within(flat.df, y <-  alpha + x * beta + 0.75 * rnorm(n = M))
-simple.df <-  flat.df[, c("unit", "a", "x", "y")]
-head(simple.df, 3)
-
-library(lme4)
-my.lmer <-  lmer(y ~ x + (1 + x | unit), data = simple.df)
-cat("AIC =", AIC(my.lmer))
-my.lmer <-  lmer(y ~ x + a + x * a + (1 + x | unit), data = simple.df)
-summary(my.lmer) 
-#+END_SRC
-
-** MSGARCH
-
-#+BEGIN_SRC R
-  library(MSGARCH)
-  spec1 <- CreateSpec(distribution.spec = list(distribution = c("norm", "norm")),
-                      switch.spec = list(do.mix=TRUE))
-  summary(spec1)
-  data("dem2gbp", package = "MSGARCH")
-  fit.ml <- FitML(spec = spec1, data=dem2gbp)
-  summary(fit.ml)
-  
-#+END_SRC
-
-* Math
-** Math in MS Word
-   1. Word’s first math editing facility was the EQ field.
-   2. MathType and its limited edition, the Equation Editor, made math entry
-      easier and considerably more general than the EQ field by adding intuitive
-      tool bars giving access to mathematical symbols and function templates.
-   3. native Office math facility(OMML Office math markup language) introduced in Microsoft Word in 2007 and added
-      to PowerPoint, OneNote, and in Excel Text Boxes in 2010.
-   4. Design Science designed MathType, which first shipped on the Mac in 1987
-      and was released on Windows in 1990. A simplified version of MathType
-      called the Equation Editor was introduced in 1992 and has shipped as part
-      of Office on Windows and the Mac ever since.
-** Background
-   1. The old Word Equation Editor was built upon MathType.
-   2. The new Word Equation Editor is based on OMML.
-   3. A MathType-Equation is displayed as an image in Word. If you have MathType
-      installed, a separate window opens if you click to edit the
-      equation. Else, you cannot edit it. New equations (OMML) can be edited
-      directly inside the Word software.
-   4. OMML and MathML are both XML-formats. omml2mml.xsl is a file provided by Microsoft to go from OMML to MathML.
-   5. MathType uses a non-XML-structure for its equations.
-   6. MathType can import MathML equations, but not OMML.
-   7. MathType therefore requires the omml2mml.xsl file to generate MathML first.
-   8. On a side note, MathType does not always preserve character styles (bold/italic) when exporting to MathML/TeX.
-   9. To support all equation-types in Word, and to improve the performance of conversion, transpect is able to translate MathType to MathML.
-** Office 中数学公式的种类
-   1. EQ域：EQ field，最先使用，outdated
-   2. Microsoft Equation Editor 3.x: mathtype 的精简版，已不再用
-   3. Mathtype
-   4. Office Math(OMML, Word 2007 引入)
-   5. LaTex
-** 相互转换
-   1. Equation Editor 3.x, Office Math, Latex->Mathtype: by Mathtype
-   2. Mathtype->Latex: Mathtype
-   3. Mathtype->Equation Editor 3.x: GrindEQ
-   4. Mathtype->Office Math:
-      1. Office 365
-      2. Office 2019?
-      3. setting MathType's Cut and Copy Preferences: "namespace attr", convert, cut and paste
-      4. Mathtype' convert: "namespace attr"
-   5. Latex->Office Math:
-      1. pandoc(但是稍复杂代码不支持)
-      2. Office365, Office 2019?
-      3. Latex->Mathtype->Office Math
-   6. Office Math -> Latex:
-      1. pandoc
-      2. office math -> mathtype -> Latex
-** 使用原则，尽量使用 Office Math
-   1. Office math 输入方法： Unicode Math
-   2. Office 2019 中可以使用 Latex 输入
-** rmarkdown 转化为 word 公式处理
-   1. 一般latex代码直接转换成了 Office Math
-   2. 复杂latex代码转换不了直接以latex代码在 word 中，可以先使用mathtype转化为mathtype公式再转换为Office Math
-** Online latex math editor
-   1. https://www.codecogs.com/latex/eqneditor.php
-   2. https://hostmath.com/
-
-* 移动版worktools注意事项
-** 基本要求
-   1. 盘符为H(start.bat, changedriver.bat)
-   2. 设置PATH,设置时使用64位程序(emacs, jre, R)
-   3. 运行 mobile.exe
-** Emacs init 文件修改
-   1. 把所有文件中的C:\换成H:\
-   2. face.el 中字体设置：要保证Consolas字体和微软雅黑字体存在，否则注释掉 cnfonts 部分，根据系统字体情况(如xp系统)设置 set-default-attribute 和 init-msyh 打开
-   3. basic.el中设置 color-theme
-   4. 公开场所不显示 org-agenda(使用(delete window))
-   5. 减少加载文件，加快速度
-** Vimrc 文件设置
-   1. 要保证Consolas字体和幼圆字体存在，否则会出错
-** 注意
-   1. 直接用bat文件拷贝fonts文件安装字体会出错，特别是字体已存在的时候
-   2. git项目文件夹要把 .git 隐藏文件夹拷进去，才有项目信息
-   3. 要同步org文件，否则org设置文件会出错
-
-* Latex
-** Where do I place my own .sty or .cls files, to make them available to all my .tex files?
-   1. 放入 C:\texlive\texmf-local\tex\latex\local 中
-   2. 运行 texhash
-
-* 编辑器比较与选择
-  1. Emacs
-  2. Vim
-  3. Vscode
-     1. 最平衡，一个bug，Terminal不能输入中文
-  4. Sublime
-  5. Notepad++
 
 * 参考文献                                                           :ignore:
-要有文字，否则会出错参考文献1 [[cite:WangGG2014]]， (这种方式影响emacs性能)。参考文献2  \cite{Ohishi2009535}
+要有文字，否则会出错
+第一种引用方式： 两对中括号，里面  cite：key (这种方式影响emacs性能)。
+第二种引用方式： 参考文献2  \cite{Ohishi2009535}
 #+BEAMER: \begin{frame}[allowframebreaks] \frametitle{参考文献}  \footnotesize
 
 # \bibliography{Bibfile}  \bibliographystyle{GBT7714-2005N} % 使用该注释让org-ref找到本地bib文件
