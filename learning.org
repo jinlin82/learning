@@ -409,6 +409,8 @@ graph LR
   4. Sublime
   5. Notepad++
 
+* Unorganized
+
 * Vim
 ** 基础
    1. normal mode，edit mode， visual mode
@@ -537,6 +539,30 @@ link-citations: true
    5. 更新环境变量名
    6. 替换 rmarkdown 包中的 default-1.17.0.2.tex 文件
    7. bookdown 源代码已修改，需remove 后再安装新编译版本
+** R functions for nonparametrics and semiparametrics
+*** packages for non- and semi- parametrics models
+    - sm
+    - SemiPar
+    - mgcv
+    - gam
+    - assist
+    - stats
+    - splines
+    - gss
+    - locfit
+    - vgam
+    - gamlss
+*** functions
+    - kernel:stats
+    - ksmooth:stats
+    - kernapply:stats
+    - smooth.spline:stats
+    - loess:stats
+    - lowess:stats
+    - bs:splines
+    - ns:splines
+    - gam:mgcv
+
 * Python
 ** TODO Python 相关
    1. Rstudio中python配置
@@ -545,6 +571,32 @@ link-citations: true
    4. elpy 文档阅读
    5. Emacs 中 python 补全
    6. ipynb VS Code 支持
+** Rstudio 中 Python 配置
+   1. 使用 reticulate::repl_python() 打开 python.exe console
+   2. 注意 默认 python.exe 版本，使用 Sys.which("python") 检查，并通过 PATH 顺序调整
+   3. quit 退出
+   4. rmarkdown中也可以使用
+   5. 参阅 https://rstudio.github.io/reticulate/index.html
+   6. https://cloud.r-project.org/web/packages/reticulate/index.html 中的Vignettes
+
+** SOFTWARE Python
+    1. You may have heard of a function known as xrange(). This is a function
+       that is present in Python 2.x, however it was renamed to range() in
+       Python 3.x, and the original range() function was deprecated in Python
+       3.x. So what's the difference? Well, in Python 2.x range() produced a
+       list, and xrange() returned an iterator - a sequence object.
+
+** Jupyter Notebook 支持
+   1. 浏览器
+   2. Spyder notebook 插件(界面与浏览器一样)
+   3. Emacs EIN package
+   4. Vscode(如何支持latex自动补全)
+   5. Pycharm(必须把ipynb设置为trusted才能运行cell并预览，不支持 latex 自动补全)
+
+=conda install spyder-notebook=
+
+** 问题
+   1. plt.show() 后不能回到 console 必须关闭后才能回来()
 
 * Math
 ** Math in MS Word
@@ -608,6 +660,14 @@ link-citations: true
    1. 放入 =C:\\texlive\\texmf-local\\tex\\latex\\local= 中
    2. 运行 texhash
 
+** TexLive 更新
+   1. 更新bibtex GBT-7714 2015
+   2. 更新到 texlive 2019
+      1. 下载iso文件，高级安装，选择文件夹
+      2. 修改 gbt7714 bst 文件
+      3. 从旧版本拷贝 ddeclient.exe 到 bin/win32 文件夹
+      4. xeCJK的更改，修改 default 17 .tex 中 为 usepackage{xeCJK}
+      5. 利用 tlmgr 工具
 * JavaScript
 ** JavaScript 语言
 ** Node.js
@@ -794,30 +854,6 @@ J = F^2  = B^3^2   = A^^3^2
     - word 2007之后直接粘贴 MathML 代码可以显示为公式
     - Mathematica具备显示latex, MathML的功能
 
-** R functions for nonparametrics and semiparametrics
-*** packages for non- and semi- parametrics models
-    - sm
-    - SemiPar
-    - mgcv
-    - gam
-    - assist
-    - stats
-    - splines
-    - gss
-    - locfit
-    - vgam
-    - gamlss
-*** functions
-    - kernel:stats
-    - ksmooth:stats
-    - kernapply:stats
-    - smooth.spline:stats
-    - loess:stats
-    - lowess:stats
-    - bs:splines
-    - ns:splines
-    - gam:mgcv
-
 ** 安装新的Emacs
      1. 官方下载新版本(64位)，也可以是32位，为兼容性起见，推荐32位, 经验证，64位启动快1秒
      2. 解压后放至worktools文件夹
@@ -851,6 +887,9 @@ J = F^2  = B^3^2   = A^^3^2
     - wikipedia里面网页的source代码里面有公式的tex代码，不用输入 tex 公式
 *** 方法
     - 删除所有的 html tags， 除了包含tex公式的部分
+** Emacs idle run
+** use Pandoc export org.mode and docx file
+
 * Diagram
 ** Asciiart, ditaa
    1. artist-mode
@@ -887,8 +926,6 @@ J = F^2  = B^3^2   = A^^3^2
    2. Buildtools: Website
    3. 注意site directory 要设置为 index.rmd 所在的文件夹
    4. 然后点击右上角的build按钮，然后点击 build book 的下拉按钮
-
-
 
 * 参考文献                                                           :ignore:
 要有文字，否则会出错
@@ -996,6 +1033,8 @@ J = F^2  = B^3^2   = A^^3^2
 #+EMAIL: jinlin82@qq.com
 # +DATE: 2014年9月10日
 #+OPTIONS: H:3 toc:t num:4 LaTeX:nil ^:{} email:nil tex:t author:nil arch:nil DATE:t
-#+TITLE:  Python 基础
+#+TITLE: 学习笔记
 
 #+PROPERTY: header-args :tangle yes
+
+
