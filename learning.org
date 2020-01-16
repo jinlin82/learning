@@ -411,6 +411,33 @@ graph LR
 
 * Unorganized
 
+* DONE rime
+  :PROPERTIES:
+  :orgtrello_id: 5db3bdf37ece5e4cd98cdb90
+  :orgtrello_local_checksum: ddb08d884b57eae55a65759b2d2d60cc69d9fe2cd695d2b636da91bee0fb08c1
+  :END:
+  1. https://www.zybuluo.com/eternity/note/81763
+  2. 最后还是 11.0最满足要求，为了防止严重错误，必须注意以下事项：
+     1. 删除上一次版本之前导出用户词典，并备份
+     2. 清空用户文件夹
+     3. 从备份文件中拷贝内容到3个文件，分别为
+     default.custom.yaml
+     weasel.custom.yaml
+     luna_pinyin_simp.custom.yaml
+
+  3. 注意：不要直接把 rime.bak 中所有的直接复制粘贴，否则会出现严重错误
+  4. 导入用户词典，同步用户资料
+  5. 为了防止问题，可以先安装一次，卸载后再重新安装一次
+
+* Vscode 学习指南
+** DONE 如何运行bat, 并借此 pandoc rmd to pdf 和 word
+   CLOSED: [2020-01-16 周四 01:43]
+** 一个bug
+   1. rime 小狼毫输入法无法在 terminal 中输入中文,其他输入法正常
+** Native R kernel for Jupyter
+** 给学生版需要删掉的包
+   1. emacs keyboard
+   2. trello(因为含有token信息)
 * Vim
 ** 基础
    1. normal mode，edit mode， visual mode
@@ -434,7 +461,13 @@ set timeout timeoutlen=1500
 #+END_SRC
 
    3. =,cc= 注释当前行， =,c<space>= Toggle 注释
-
+* Todoist
+  1. 网站
+  2. chrome 插件
+  3. windows 程序
+  4. emacs mode
+  5. 安卓手机程序
+  6. outlook 插件
 * Rmarkdown 写作相关
 ** Markdown 中文换行输出后有空格问题解决方法
    - 这是很长时间以来都存在的一个问题。
@@ -523,6 +556,13 @@ link-citations: true
    2. out.width单位一致 out.width="95%"
 ** 表格导出问题
    1. kableextra 不支持 word，因此生成word时不能使用 kableextra
+** Rstudio Bug:
+   1. Rmarkdown 中 python chunk 中不能包含中文，否则运行会出错。
+   2. 局限性：只能整个代码块运行，并且结果只能在文档中显示
+** 借助 Vscode 可以解决
+   1. R markdown 模式，直接运行 R 代码，python代码借助reticulate::repl_python() 运行
+   2. markdown 模式可以补全latex 代码
+   3. python 模式， 直接运行 python 代码，把 R 代码利用 rpy2 写成 python 代码，直接运行
 
 * R
 ** latex listing 包中 R 代码 多个 # 出错
@@ -571,6 +611,7 @@ link-citations: true
    4. elpy 文档阅读
    5. Emacs 中 python 补全
    6. ipynb VS Code 支持
+   7. 研究 emacs-jedi 新版本
 ** Rstudio 中 Python 配置
    1. 使用 reticulate::repl_python() 打开 python.exe console
    2. 注意 默认 python.exe 版本，使用 Sys.which("python") 检查，并通过 PATH 顺序调整
@@ -597,6 +638,10 @@ link-citations: true
 
 ** 问题
    1. plt.show() 后不能回到 console 必须关闭后才能回来()
+   2. emacs 中 inferior mode 不完全支持自动补全
+   3. ein 中如何设置自动补全
+   4. anaconda 版本不同，导致 elpy 中使用的 环境也不同， 在同步文件时会出现错误
+   5. elpy 自动补全 需要 ("jedi" "flake8" "autopep8" "yapf" "black" "rope") 支持
 
 * Math
 ** Math in MS Word
@@ -888,6 +933,8 @@ J = F^2  = B^3^2   = A^^3^2
 *** 方法
     - 删除所有的 html tags， 除了包含tex公式的部分
 ** Emacs idle run
+** TODO 配置lsp-mode
+   1. Emacs 27 has JSON improvements which make LSP perform LSP better. Use lsp-mode only when we are using Emacs 27+.
 ** use Pandoc export org.mode and docx file
 
 * Diagram
