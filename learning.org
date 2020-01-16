@@ -412,10 +412,6 @@ graph LR
 * Unorganized
 
 * DONE rime
-  :PROPERTIES:
-  :orgtrello_id: 5db3bdf37ece5e4cd98cdb90
-  :orgtrello_local_checksum: ddb08d884b57eae55a65759b2d2d60cc69d9fe2cd695d2b636da91bee0fb08c1
-  :END:
   1. https://www.zybuluo.com/eternity/note/81763
   2. 最后还是 11.0最满足要求，为了防止严重错误，必须注意以下事项：
      1. 删除上一次版本之前导出用户词典，并备份
