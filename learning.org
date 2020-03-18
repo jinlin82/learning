@@ -409,7 +409,23 @@ graph LR
   4. Sublime
   5. Notepad++
 
+* 智慧教学
+
+** 软件
+
+*** sharex
+
+*** carnac
+
+*** 腾讯会议
+*** Presto's clock gadget
+    1. 打开gadget
+    2. 覆盖配置文件(bat文件)
+    3. 选择大尺寸，选项重新配置
+    4. 移动位置
+    5. 设置前端显示
 * Unorganized
+$\alpha$ 
 
 * DONE rime
   1. https://www.zybuluo.com/eternity/note/81763
@@ -428,12 +444,29 @@ graph LR
 * Vscode 学习指南
 ** DONE 如何运行bat, 并借此 pandoc rmd to pdf 和 word
    CLOSED: [2020-01-16 周四 01:43]
-** 一个bug
+   1. 利用 vscode task 功能
+** DONE 一个bug
+   CLOSED: [2020-02-07 周五 15:59]
    1. rime 小狼毫输入法无法在 terminal 中输入中文,其他输入法正常
 ** Native R kernel for Jupyter
 ** 给学生版需要删掉的包
    1. emacs keyboard
    2. trello(因为含有token信息)
+   3. wakatime(自己研究生不删)
+** R 支持配置
+   1. Yuki Ueda R package
+   2. 使用 R.exe 时不能显示和输入中文，故使用 radian.exe 代替, 使用
+      =pip install radian= 安装
+   3. R LSP Client 支持更好，但含有中文时有bug
+   4. 备选的 R-tools 也可以支持补全，但没有 R LSP Client 支持的好，并且安装复杂，
+      具体安装步骤为：
+      1. 安装 Vscode R-tools package
+      2. 安装 .net core 2.1.0版本(注意版本不能错，64位)
+      3. R 要安装注册，让 R-tools 可以自动找到。
+** building extensions
+   1. https://code.visualstudio.com/api/get-started/your-first-extension
+** TODO stackoverflow
+
 * Vim
 ** 基础
    1. normal mode，edit mode， visual mode
@@ -464,6 +497,35 @@ set timeout timeoutlen=1500
   4. emacs mode
   5. 安卓手机程序
   6. outlook 插件
+* SQL
+** 数据库知识
+** SQL语言
+** 数据库系统
+*** postgresSQL
+    1. 使用的是 PostgreSQLPortable
+    2. 启动使用参数类似于 ~psql.exe -P pager --pset expanded=on~
+    3. 提示语言修改在windows中通过设置环境变量 LC_MESSAGES 为 en_US 或 zh_CN
+    4. 把表或查询结果输出为csv
+~\COPY my_table TO 'filename.csv' CSV HEADER~
+
+~\COPY (SELECT * from "film" LIMIT 10) TO 'filename.csv' CSV HEADER~
+
+注意括号内的查询语句不能以分号(;)结尾
+
+*** MySQL
+*** oracle
+*** Ms SQL Server
+** 编程工具
+*** vscode支持
+*** Emacs支持
+    1. 问题：SQLi mode中命令提示符(prompt)出不来
+    2. 补全不如vscode强大
+*** 其他工具
+    1. 
+** 编程语言连接数据库
+*** R
+*** Python
+
 * Rmarkdown 写作相关
 ** Markdown 中文换行输出后有空格问题解决方法
    - 这是很长时间以来都存在的一个问题。
@@ -559,7 +621,6 @@ link-citations: true
    1. R markdown 模式，直接运行 R 代码，python代码借助reticulate::repl_python() 运行
    2. markdown 模式可以补全latex 代码
    3. python 模式， 直接运行 python 代码，把 R 代码利用 rpy2 写成 python 代码，直接运行
-
 * R
 ** latex listing 包中 R 代码 多个 # 出错
    1. org文件R代码修改 org.el 中 lstset 里面的 texcl= true
@@ -569,12 +630,18 @@ link-citations: true
   [[file:c:/Works/Working_Paper/2019-01-shibor-msgarch/ms-garch.Rmd][file:c:/Works/Working_Paper/2019-01-shibor-msgarch/ms-garch.Rmd]]
 ** R 更新步骤：
    1. 下载并安装新版本R安装文件（注意：一般不要下载最新版本，因为可能有些包没有更新不兼容）
-   2. 把旧版本中 library 复制到新版本 library 中，注意 不要替换
+   2. 把旧版本中 library 复制到新版本 library 中，注意 有替换提示的时候选择不要替换
    3. update 所有 packages(不要更新 rmarkdown 和 bookdown，因为已经修改), 可能需要几次
    4. 把initial file.(etc文件夹)拷入新版中install.packages(file.choose(), repos = NULL, type="binary")
    5. 更新环境变量名
    6. 替换 rmarkdown 包中的 default-1.17.0.2.tex 文件
    7. bookdown 源代码已修改，需remove 后再安装新编译版本
+   8. 如果是通过复制R文件夹，想写入注册表，有两种方式：
+      1. 导出注册表，导入 R-core.reg 注册表
+      2. After installation you can add the Registry entries by running
+         RSetReg.exe（注意有两个都要运行44 and remove them by
+         running this with argument /U.
+
 ** R functions for nonparametrics and semiparametrics
 *** packages for non- and semi- parametrics models
     - sm
@@ -639,6 +706,17 @@ link-citations: true
    4. anaconda 版本不同，导致 elpy 中使用的 环境也不同， 在同步文件时会出现错误
    5. elpy 自动补全 需要 ("jedi" "flake8" "autopep8" "yapf" "black" "rope") 支持
 
+** 参考资料
+   1. http://www.data-analysis-in-python.org/index.html
+   2. https://scipy-lectures.org/index.html
+   3. https://www.practicaldatascience.org/html/index.html
+   4. https://www.labri.fr/perso/nrougier/from-python-to-numpy/
+   5. https://pbpython.com/
+
+* Machine Learning
+** 资源
+   1. [[https://christophm.github.io/interpretable-ml-book/][Interpretable Machine Learning]]
+
 * Math
 ** Math in MS Word
    1. Word’s first math editing facility was the EQ field.
@@ -696,9 +774,19 @@ link-citations: true
    1. https://www.codecogs.com/latex/eqneditor.php
    2. https://hostmath.com/
 
+* Leetcode
+  1. 作用：刷题
+  2. Vscode 支持非常完美
+** TODO Emacs中有两个package支持leetcode：
+     1. https://github.com/kaiwk/leetcode.el
+     2. https://github.com/ginqi7/leetcode-emacs
+     3. 第一个包不成功，第二个包没有尝试
+  4. 有两个网站：leetcode.com 和 leetcode-cn.com
+  5. app 功能支持
+
 * Latex
 ** Where do I place my own .sty or .cls files, to make them available to all my .tex files?
-   1. 放入 =C:\\texlive\\texmf-local\\tex\\latex\\local= 中
+   1. 放入 ~C:\\texlive\\texmf-local\\tex\\latex\\local~ 中
    2. 运行 texhash
 
 ** TexLive 更新
@@ -709,6 +797,9 @@ link-citations: true
       3. 从旧版本拷贝 ddeclient.exe 到 bin/win32 文件夹
       4. xeCJK的更改，修改 default 17 .tex 中 为 usepackage{xeCJK}
       5. 利用 tlmgr 工具
+** Beamer
+*** How do I change hyperlinks' color only?
+    1. ~hyperref={colorlinks,allcolors=.,urlcolor=blue,bookmarksdepth=4}~
 * JavaScript
 ** JavaScript 语言
 ** Node.js
@@ -860,6 +951,18 @@ J = F^2  = B^3^2   = A^^3^2
    2. github-stars-list
    3. Magit
    4. Magithub: Magit 配合 github 使用
+** git quick-stats
+   1. https://github.com/arzzen/git-quick-stats
+   2. 把 git-quick-stats 文件拷贝到 C:/Worktools/git/usr/bin/git-quick-stats
+   3. 在 .gitconfig 文件中增加
+
+#+BEGIN_SRC R :eval false
+[alias]
+	quick-stats = ! C:/Worktools/git/usr/bin/git-quick-stats
+#+END_SRC
+
+   4. 注意在emacs中要使用 git quick-stats -T
+
 * Emacs
 ** Org-mode
 *** Org sync
@@ -932,6 +1035,9 @@ J = F^2  = B^3^2   = A^^3^2
 ** TODO 配置lsp-mode
    1. Emacs 27 has JSON improvements which make LSP perform LSP better. Use lsp-mode only when we are using Emacs 27+.
 ** use Pandoc export org.mode and docx file
+** TODO 配置 emoji
+   1. emojify-mode
+   2. company-emoji
 
 * Diagram
 ** Asciiart, ditaa
