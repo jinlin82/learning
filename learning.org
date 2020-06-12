@@ -24,6 +24,26 @@
    4. Github
    5. GoosSync, 坚果云, foldersync
    6. Evernote
+** 工作内容同步
+   1. 要求：不允许出问题
+   2. 先备份
+   3. 同步频率高
+   4. 文件夹： C:\Works
+
+** 工作工具文件夹同步
+   1. 特点：体积大，文件多，同步频率不高
+   2. 要求：精准，速度快，控制在30分钟之内
+   3. 方法：
+   4. 硬件要求
+   5. 需要同步的文件夹
+      1. C:\Anaconda3\
+      2. C:\cygwin\
+      3. C:\texlive\
+      4. C:\Worktools\
+      5. %appdata%
+      6. %userprofile%中的一些配置文件
+      7. %programdata%
+
 * 统计
 ** 事件分析法
 *** 概念
@@ -323,7 +343,8 @@ summary(my.lmer)
 ~# 参考文献~
 
 ~[//]: # (\bibliography{Bibfile})~
-   4. 正文中通过 =[@bibtexkey]= 引用
+   1. 正文中通过 =[@bibtexkey]= 引用
+   2. 在 yaml header 中加入： ~nocite: '@*'~,可以把bib文件中所有文献列出来
 
 ** org-mode 中参考文献管理
 *** 概念
@@ -408,6 +429,7 @@ graph LR
      1. 最平衡，一个bug，Terminal不能输入中文
   4. Sublime
   5. Notepad++
+     - 安装右键 ~regsvr32 /i NppShell_06.dll~
 
 * 智慧教学
 
@@ -425,8 +447,6 @@ graph LR
     4. 移动位置
     5. 设置前端显示
 * Unorganized
-$\alpha$ 
-
 * DONE rime
   1. https://www.zybuluo.com/eternity/note/81763
   2. 最后还是 11.0最满足要求，为了防止严重错误，必须注意以下事项：
@@ -466,6 +486,11 @@ $\alpha$
 ** building extensions
    1. https://code.visualstudio.com/api/get-started/your-first-extension
 ** TODO stackoverflow
+** Vscode 更新步骤
+   1. 下载vscode最新版本
+   2. 把旧版本 vscode 文件夹中的 data 文件夹拷入新版本中
+   3. 更新右键快捷方式
+   4. 更新 ahk 代码
 
 * Vim
 ** 基础
@@ -497,6 +522,15 @@ set timeout timeoutlen=1500
   4. emacs mode
   5. 安卓手机程序
   6. outlook 插件
+* 项目中 TODO 管理
+  - 使用 TODO.org 文件
+  - 特别注意： TODO.org 文件要使用 gb2312 编码，否则 emacs 
+** Emacs Magit 中
+   - 文件编辑使用 org-mode
+   - todo 列表在 magit status 中
+** Vscode 中
+   - 文件编辑,使用 org 插件，要掌握快捷键
+   - todo列表在 view: SHOW TODO
 * SQL
 ** 数据库知识
 ** SQL语言
@@ -939,13 +973,23 @@ J = F^2  = B^3^2   = A^^3^2
     3. 贡献者修改后 push 到贡献者的fork
     4. 向 owner 提交 pull request
     5. 贡献者 sync with owner's master [[https://stackoverflow.com/questions/7244321/how-do-i-update-a-github-forked-repository]]
+*** Github news feed
+    1. 从主页获取feed地址
+    2. 通过 rss reader 支持即可
+    3. android rss 支持：read simple rss reader
+    4. Windows: rssowl
+    5. Emacs: elfeed
+    6. Vscode: rss-reader
+
+** Gitea
+   1. 登录密码： Linkim_1982316
+
 ** 增加 gitee 支持
    1. 注册
    2. gitee 网站新建项目(注意不要自动生成readme)
    3. magit-remote-add gitee 项目网址
    4. 设置 upstream 为 gitee
    5. 注意 Merge 与 Push
-
 ** Emacs + Git
    1. helm-github-stars
    2. github-stars-list
@@ -1053,18 +1097,21 @@ J = F^2  = B^3^2   = A^^3^2
    2. plantuml-mode
    3. org-babel
 ** Mermaid
-   1. 安装 mermaid-filter(包含了 mermaid和mermaid-cli，需要 node.js 支持)
-   2. mermaid-mode
-   3. ob-mermaid
-   4. org-babel
-   5. pandoc markdown with mermaid-filter
+   1. 注意：Mermaid 基本不可用，主要原因其导出的png格式质量太差，其生成的pdf和docx不能用于印刷，而且这个问题很难解决。只生成html时可用。
+   2. 安装 mermaid-filter(包含了 mermaid和mermaid-cli，需要 node.js 支持)
+   3. mermaid-mode
+   4. ob-mermaid
+   5. org-babel
+   6. pandoc markdown with mermaid-filter
       - 生成图形，标题和引用都没有问题，但图形使用bookdown不能自动编号
+	- 注意：需要更新到最新的mermaid-filter,才能编译 state diagram
+	- 删除原来的 mermaid-filter后，使用 ~npm install -g https://github.com/raghur/mermaid-filter~ 安装
       - 主要原因是：目前使用的bookdown的图表自动编号功能，其是建立在knitr把图表
         生成html代码格式，而不是标准的pandoc markdown插入图表用法。
       - 更好的方式是使用pandoc的插件pandoc-crossref,但 knitr 不支持
       - 目前的解决方法：1. 不要自动编号 2. 写 mmd文件生成图片后，使用 knitr::include_graphics 插入图片
       - 未来解决方法：写一个 基于 python的pandoc-filter，把图片的格式统一
-   6. 注意 R的 diagramer 包支持mermaid，在Rstudio中可以直接编辑 mmd格式文件然后生成图形.
+   7. 注意 R的 diagramer 包支持mermaid，在Rstudio中可以直接编辑 mmd格式文件然后生成图形.
 
 * Bookdown 相关问题
 ** 存在的问题：
