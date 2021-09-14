@@ -450,24 +450,19 @@ graph LR
 ** PDF 工具
    1. edge pdf 朗读
    2. foxit reader
-* Total Commander
-  1. 在 explorer 中打开文件夹 ，I just use . (yes, that is a dot) or ctrl + enter enter
-* DONE rime
-1. https://www.zybuluo.com/eternity/note/81763
-2. 11.0 以上版本与vim兼容性有问题，图标过大
-3. 最后还是 11.0最满足要求，为了防止严重错误，必须注意以下事项：
-   1. 注意：同步时不要同步 rime 文件夹，包括用户文件夹
-   2. 安装在program files文件夹里面
-   3. 删除上一次版本之前导出用户词典，并备份
-   4. 清空用户文件夹
-   5. 从备份文件中拷贝内容到3个文件，分别为
-   default.custom.yaml
-   weasel.custom.yaml
-   # luna_pinyin_simp.custom.yaml 
-   1. 把安装文件夹中的data/luna_pinyin_simp.schema.yaml 中的 ascii_mode    reset: 1
-4. 注意：不要直接把 rime.bak 中所有的直接复制粘贴，否则会出现严重错误 
-5. 导入用户词典，同步用户资料
-6. 为了防止问题，可以先安装一次，卸载后再重新安装一次
+*** DONE rime
+  1. https://www.zybuluo.com/eternity/note/81763
+  2. 最后还是 11.0最满足要求，为了防止严重错误，必须注意以下事项：
+     1. 删除上一次版本之前导出用户词典，并备份
+     2. 清空用户文件夹
+     3. 从备份文件中拷贝内容到3个文件，分别为
+     default.custom.yaml
+     weasel.custom.yaml
+     luna_pinyin_simp.custom.yaml
+     4. 把安装文件夹中的data/luna_pinyin_simp.schema.yaml 中的 ascii_mode    reset: 1
+  3. 注意：不要直接把 rime.bak 中所有的直接复制粘贴，否则会出现严重错误
+  4. 导入用户词典，同步用户资料
+  5. 为了防止问题，可以先安装一次，卸载后再重新安装一次
 
 * Vscode 学习指南
 ** DONE 如何运行bat, 并借此 pandoc rmd to pdf 和 word
@@ -497,11 +492,8 @@ graph LR
 ** Vscode 更新步骤
    1. 下载vscode最新版本
    2. 把旧版本 vscode 文件夹中的 data 文件夹拷入新版本中
-   3. 更新path环境变量
-   4. 更新右键快捷方式、mobile.reg
-   5. 更新Code.exe.lnk
-   6. 更新任务栏
-   7. 更新 ahk 代码
+   3. 更新右键快捷方式
+   4. 更新 ahk 代码
 
 * Vim
 ** 基础
@@ -710,6 +702,10 @@ link-citations: true
     - bs:splines
     - ns:splines
     - gam:mgcv
+*** R online console
+    1. https://rdrr.io/snippets/
+    2. https://www.mycompiler.io/new/r
+    3. https://cocalc.com/
 
 * Python
 ** TODO Python 相关
@@ -966,36 +962,6 @@ OR If you are on some other branch:
 
 git reset --hard origin/<branch_name>
 
-*** 分支
-    1. 分支基础知识
-       - 使用分支意味着你可以从开发主线上分离开来，然后在不影响主线的同时继续工作。
-    2. 分支创建
-       - git branch testing
-       - Magit操作: b n
-       - Vs Code 操作: 点击左下角分支名称或者运行命令 git: create branch
-    3. 列出所有分支(包括本地和远程)
-       - git branch -a
-       - Magit: Use magit-show-refs, bound by default to y. 或者在 status 中已经显示
-       - Vs Code 操作: 点击左下角分支名称
-    4. 切换分支
-       - git checkout testing
-       - Magit: b l 或者 b b
-       - Vs Code 操作: 点击左下角分支名称
-    5. 拉取(pull)远程分支
-       - git fetch --all --prune
-       - Magit: magit-fetch-all-prune
-       - Vs Code 操作: 打开 Git Graph， 右上角 Fetch & Prune,然后状态栏右下角同步按钮
-    6. 删除本地分支：切换到非当前要删除的分支上，再删除
-       - git branch -d localBranchName
-       - Magit: k 或者 b k
-       - Vs Code 操作: git: branch delete 命令
-    7. 删除远程分支：
-       - git push origin --delete remoteBranchName（分支名称需要去掉origin，如果有）
-       - Magit: k 或者 b k
-       - 无，在终端中使用 git 命令
-    8. 合并分支：git merge
-    9. 常见工作场景
-
 ** Github
 *** 注册安装
     1. 注册，网页操作
@@ -1034,6 +1000,10 @@ git reset --hard origin/<branch_name>
     4. Windows: rssowl
     5. Emacs: elfeed
     6. Vscode: rss-reader
+*** 修改github密码为凭证
+    1. 生成凭证
+    2. view the Credential Manager from your Control Panel settings.
+    3. 把密码修改为凭证
 
 ** Gitea
    1. 登录密码： Linkim_1982316
@@ -1049,12 +1019,6 @@ git reset --hard origin/<branch_name>
    2. github-stars-list
    3. Magit
    4. Magithub: Magit 配合 github 使用
-   5. Emacs 中如果整个项目中含有中文文件夹，并且整个项目中没有比较长(跟具体中文有关系，一般达到8个中文字符没问题)的中文名文件的时候会出现两个问题：
-      1. find-file-in-project 中文文件夹和中文文件名会乱码
-      2. magit 中提交 commit 消息中文会乱码
-
-      解决方法：
-      - 在整个项目中添加一个中文名较长的文件， 如 .中文文件夹 文件，存在一个即可，可放在任意位置，一般放在中文文件夹下面，要push到项目中。
 ** git quick-stats
    1. https://github.com/arzzen/git-quick-stats
    2. 把 git-quick-stats 文件拷贝到 C:/Worktools/git/usr/bin/git-quick-stats
