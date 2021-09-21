@@ -564,6 +564,18 @@ set timeout timeoutlen=1500
 *** Python
 
 * Rmarkdown 写作相关
+** 新版本bookdown(>=0.24)修改配置方法
+   1. 新增了在 ~_output.yml~ 文件中 =global_numbering= 选择，支持 html，word，ppt等，pdf和beamer在latex中支持
+   2. 新增了在 =_bookdown.yml= 文件中图表 prefix 的格式控制，但由于中文编码问题不可用
+#+BEGIN_SRC R
+language:
+  label:
+    # fig: !expr function(x) paste("图", x, "&nbsp;&nbsp;")
+    # tab: !expr function(x) paste("表", x, "&nbsp;&nbsp;")
+    # 由于Rscript.exe 中文支持问题，上面导致 R crash, 从bookdown 源代码修改后重新编译package
+#+END_SRC
+   3. 需要修改 html.R(控制html输出) 和 ebook.R (控制word等输出) 中的 ~sep = ': '~ 等为 ~sep = '&nbsp;&nbsp;'~
+   4. 重新编译bookdown并安装
 ** Markdown 中文换行输出后有空格问题解决方法
    - 这是很长时间以来都存在的一个问题。
    - 现在可以通过pandoc中的 east_asian_line_breaks 这个 extensions 来解决。
@@ -669,11 +681,23 @@ link-citations: true
    1. 下载并安装新版本R安装文件（注意：一般不要下载最新版本，因为可能有些包没有更新不兼容）
    2. 把旧版本中 library 复制到新版本 library 中，注意 有替换提示的时候选择不要替换
    3. update 所有 packages(不要更新 rmarkdown 和 bookdown，因为已经修改), 可能需要几次
-   4. 把initial file.(etc文件夹)拷入新版中install.packages(file.choose(), repos = NULL, type="binary")
-   5. 更新环境变量名
-   6. 替换 rmarkdown 包中的 default-1.17.0.2.tex 文件
-   7. bookdown 源代码已修改，需remove 后再安装新编译版本
-   8. 如果是通过复制R文件夹，想写入注册表，有两种方式：
+   4. 如果更新R大版本，则需要重新安装全部package，可以从旧版本R中输出全部安装的package名单，再读入新版本R后安装
+
+#+BEGIN_SRC R
+pkg <- as.data.frame(installed.packages())
+pkgs <- cbind(as.character(pkg$Package), as.character(pkg$Priority))
+write.csv(pkgs[is.na(pkgs[,2]),1], "c:/pkgs.csv")
+
+installpkgs <- as.character(read.csv("c:/pkgs.csv")[,2])
+
+#+END_SRC
+
+
+   5. 把initial file.(etc文件夹)拷入新版中
+   6. 更新环境变量名
+   7. 替换 rmarkdown 包中的 default-1.17.0.2.tex 文件
+   8. bookdown 源代码已修改，需remove 后再安装新编译版本install.packages(file.choose(), repos = NULL, type="binary")
+   9. 如果是通过复制R文件夹，想写入注册表，有两种方式：
       1. 导出注册表，导入 R-core.reg 注册表
       2. After installation you can add the Registry entries by running
          RSetReg.exe（注意有两个都要运行44 and remove them by
