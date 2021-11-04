@@ -450,19 +450,68 @@ graph LR
 ** PDF 工具
    1. edge pdf 朗读
    2. foxit reader
-*** DONE rime
-  1. https://www.zybuluo.com/eternity/note/81763
-  2. 最后还是 11.0最满足要求，为了防止严重错误，必须注意以下事项：
-     1. 删除上一次版本之前导出用户词典，并备份
-     2. 清空用户文件夹
-     3. 从备份文件中拷贝内容到3个文件，分别为
-     default.custom.yaml
-     weasel.custom.yaml
-     luna_pinyin_simp.custom.yaml
-     4. 把安装文件夹中的data/luna_pinyin_simp.schema.yaml 中的 ascii_mode    reset: 1
-  3. 注意：不要直接把 rime.bak 中所有的直接复制粘贴，否则会出现严重错误
-  4. 导入用户词典，同步用户资料
-  5. 为了防止问题，可以先安装一次，卸载后再重新安装一次
+* DONE rime
+1. https://www.zybuluo.com/eternity/note/81763
+2. 完整卸载步骤：
+   1. 控制面板卸载程序并重启
+   2. 备份用户文件夹后删除
+   3. regedit 搜索 rime 删除
+3. 最后还是 11.0最满足要求，为了防止严重错误，按照步骤：
+   1. 清空以前的用户文件夹
+   2. 正常安装，重启可以正常使用
+   3. 开始菜单中选择 输入法设定，选择 明月拼音简化字 和 luna
+   4. 从备份文件中拷贝内容到2个文件到用户文件夹，分别为
+      default.custom.yaml
+      weasel.custom.yaml
+   5. 把安装文件夹中的data/luna_pinyin_simp.schema.yaml 中的 ascii_mode    reset: 1
+   6. 选择重新部署
+   7. 导入用户词典，同步用户资料
+4. 注意：不要直接把 rime.bak 中所有的直接复制粘贴，否则会出现严重错误
+5. 注意：与创新声卡驱动冲突，导致rime输入法不可用
+6. 注意：有时出现严重问题，即在用户文件夹中生成几百个万个空文件，典型症状就是 任务栏卡死
+7. 为了防止严重问题，可以先安装一次，卸载后再重新安装一次
+
+* DONE 重装 Win 7 系统
+** 全新重装
+   1. 准备工作(10分钟)
+   2. 重新安装（大约30分钟）(插入 USB 2.0 上)
+   3. Windows update, 安装驱动，拷贝文件可以同时进行（大约2-3小时）
+   4. 设置windows（大约30分钟，主题，字体大小，true type，开始菜单）
+   5. lockcmd，netplwiz
+   6. 环境变量修改（通过rapidee备份文件）
+   7. 从其他电脑拷贝 programdata 和 username(user\jl) 文件夹(30分钟)
+   8. 拷入 Anaconda，cygwin, rtools40, texlive,Works, Worktools(约50多G，约60分钟)，
+      C盘够大，拷入 Worktools 2013和 books(约80G，约60分钟)
+   9. autohotkey自动运行
+   10. edge, Chrome(插件)
+   11. winrar
+   12. Office(30分钟)
+       1. vpn
+       2. 正版认证
+       3. mathtype 6.9
+       4. outlook 配置
+   13. adobe professional
+   14. 微信pc
+   15. goodsync配置
+   16. 计划任务(通过导入其他电脑系统中 system32/tasks文件夹中文件)
+   17. evernote
+   18. 百度网盘客户端
+   19. rime 输入法(在安装office后修改，因为office会修改输入法，导致要重新安装)
+   20. 清理
+
+** 爱纯净系统快速安装
+   1. 利用U盘制作启动盘
+   2. 快速安装
+   
+** 利用分区助手备份系统到固态硬盘并还原
+
+*** 备份
+    1. 为节省空间，关闭虚拟内存，系统休眠和系统还原
+    2. 将备份用固态硬盘接入到sata接口，利用分区助手迁移系统备份系统到新的固态硬盘
+
+*** 还原
+    1. 从备份用的固态启动，利用分区助手迁移备份系统到原固态硬盘
+    2. 开启虚拟内存，系统休眠和系统还原
 
 * Vscode 学习指南
 ** DONE 如何运行bat, 并借此 pandoc rmd to pdf 和 word
@@ -670,6 +719,7 @@ link-citations: true
    1. R markdown 模式，直接运行 R 代码，python代码借助reticulate::repl_python() 运行
    2. markdown 模式可以补全latex 代码
    3. python 模式， 直接运行 python 代码，把 R 代码利用 rpy2 写成 python 代码，直接运行
+** TODO officedown
 * R
 ** latex listing 包中 R 代码 多个 # 出错
    1. org文件R代码修改 org.el 中 lstset 里面的 texcl= true
@@ -1125,7 +1175,9 @@ git reset --hard origin/<branch_name>
     - 删除所有的 html tags， 除了包含tex公式的部分
 ** Emacs idle run
 ** TODO 配置lsp-mode
-   1. Emacs 27 has JSON improvements which make LSP perform LSP better. Use lsp-mode only when we are using Emacs 27+.
+   1. Emacs 27 has JSON improvements which make LSP perform LSP better. Use
+      lsp-mode only when we are using Emacs 27+.
+** TODO Why Emacs 27 startup so slow, 50% more time used
 ** use Pandoc export org.mode and docx file
 ** TODO 配置 emoji
    1. emojify-mode
