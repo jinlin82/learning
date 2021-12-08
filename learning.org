@@ -712,6 +712,9 @@ link-citations: true
    2. out.width单位一致 out.width="95%"
 ** 表格导出问题
    1. kableextra 不支持 word，因此生成word时不能使用 kableextra
+   2. kableExtra 中的两个小问题：
+      1. 续表的前表中底部无横线，在kable_styling.R中进行了hack
+      2. 注释“注”和后面内容中间空白太多，在 footnote.R 中进行了hack
 ** Rstudio Bug:
    1. Rmarkdown 中 python chunk 中不能包含中文，否则运行会出错。
    2. 局限性：只能整个代码块运行，并且结果只能在文档中显示
@@ -886,8 +889,10 @@ installpkgs <- as.character(read.csv("c:/pkgs.csv")[,2])
    1. 一般latex代码直接转换成了 Office Math
    2. 复杂latex代码转换不了直接以latex代码在 word 中，可以先使用mathtype转化为mathtype公式再转换为Office Math
 ** Online latex math editor
-   1. https://www.codecogs.com/latex/eqneditor.php
-   2. https://hostmath.com/
+   1. https://www.latexlive.com/
+   2. https://www.codecogs.com/latex/eqneditor.php
+   3. https://hostmath.com/
+   4. https://www.tablesgenerator.com/
 
 * Leetcode
   1. 作用：刷题
