@@ -28,7 +28,7 @@
    1. 要求：不允许出问题
    2. 先备份
    3. 同步频率高
-   4. 文件夹： C:\Works
+   4. 文件夹： ~C:\Works~
 
 ** 工作工具文件夹同步
    1. 特点：体积大，文件多，同步频率不高
@@ -36,10 +36,10 @@
    3. 方法：
    4. 硬件要求
    5. 需要同步的文件夹
-      1. C:\Anaconda3\
-      2. C:\cygwin\
-      3. C:\texlive\
-      4. C:\Worktools\
+      1. ~C:\Anaconda3\~
+      2. ~C:\cygwin\~
+      3. ~C:\texlive\~
+      4. ~C:\Worktools\~
       5. %appdata%
       6. %userprofile%中的一些配置文件
       7. %programdata%
@@ -479,7 +479,7 @@ graph LR
    4. 设置windows（大约30分钟，主题，字体大小，true type，开始菜单）
    5. lockcmd，netplwiz
    6. 环境变量修改（通过rapidee备份文件）
-   7. 从其他电脑拷贝 programdata 和 username(user\jl) 文件夹(30分钟)
+   7. 从其他电脑拷贝 programdata 和 username(~user\jl~) 文件夹(30分钟)
    8. 拷入 Anaconda，cygwin, rtools40, texlive,Works, Worktools(约50多G，约60分钟)，
       C盘够大，拷入 Worktools 2013和 books(约80G，约60分钟)
    9. autohotkey自动运行
@@ -614,8 +614,8 @@ set timeout timeoutlen=1500
 
 * Rmarkdown 写作相关
 ** 新版本bookdown(>=0.24)修改配置方法
-   1. 新增了在 ~_output.yml~ 文件中 =global_numbering= 选择，支持 html，word，ppt等，pdf和beamer在latex中支持
-   2. 新增了在 =_bookdown.yml= 文件中图表 prefix 的格式控制，但由于中文编码问题不可用
+   1. 新增了在 ~_output.yml~ 文件中 ~global_numbering~ 选择，支持 html，word，ppt等，pdf和beamer在latex中支持
+   2. 新增了在 ~_bookdown.yml~ 文件中图表 prefix 的格式控制，但由于中文编码问题不可用
 #+BEGIN_SRC R
 language:
   label:
@@ -701,6 +701,7 @@ csl: chinese-gb7714-2005-numeric.csl
 link-citations: true
 ---
 #+END_SRC
+
 ** bookdown 和 rmarkdown 在LaTeX默认输出表格设置上有区别
    1. rmarkdown 处理更优秀
    2. 使用 bookdown::pdf_document2: 时，为达到与 rmarkdown 相同的效果，必须在
@@ -785,6 +786,11 @@ installpkgs <- as.character(read.csv("c:/pkgs.csv")[,2])
     3. https://cocalc.com/
 
 * Python
+** Anaconda 安装
+   1. 有些版本有bug, can't create menus, 只能换版本
+   2. 安装后需要 pip 安装的package 包括：radian, wakatime
+   3. 把 emacs elpa中的elpy 文件夹复制到 ~C:\Anaconda3\Lib\site-packages\elpy~ 下面
+   4. 注意：elpy 包安装的时候会更新 jedi, parso 等包，可能使得一些不兼容性，包括spyder中要求的版本不一致
 ** TODO Python 相关
    1. Rstudio中python配置
    2. EIN 文档阅读
@@ -1227,6 +1233,12 @@ git reset --hard origin/<branch_name>
    2. Buildtools: Website
    3. 注意site directory 要设置为 index.rmd 所在的文件夹
    4. 然后点击右上角的build按钮，然后点击 build book 的下拉按钮
+* Batch
+  + Replacing a file into multiple folders/subdirectories
+
+#+BEGIN_SRC R
+replace C:\SourceFile.Txt C:\Multiple_SubFolders /s
+#+END_SRC
 
 * 参考文献                                                           :ignore:
 要有文字，否则会出错
@@ -1240,8 +1252,8 @@ git reset --hard origin/<branch_name>
 #+BEAMER: \end{frame}
 
 * Export Configuration 					   :noexport:ARCHIVE:
-# +LATEX_CLASS_OPTIONS: [11pt,xcolor=dvipsnames,aspectratio=43,hyperref={bookmarksdepth=4}]
-#+LATEX_CLASS_OPTIONS: [UTF8,a4paper,12pt]{ctexart}  % Latex 去掉上面的语句，加上本语句
+#+LATEX_CLASS_OPTIONS: [11pt,xcolor=dvipsnames,aspectratio=43,hyperref={bookmarksdepth=4}]
+# +LATEX_CLASS_OPTIONS: [UTF8,a4paper,12pt]{ctexart}  % Latex 去掉上面的语句，加上本语句
 #+LaTeX_HEADER_EXTRA: % -------------------------- Document Title -----------------------------
 #+LATEX_HEADER_EXTRA: \usepackage{titling}
 #+LATEX_HEADER_EXTRA: \pretitle{\begin{center}\vskip -1em\Large\textbf}
