@@ -1233,12 +1233,17 @@ git reset --hard origin/<branch_name>
    2. Buildtools: Website
    3. 注意site directory 要设置为 index.rmd 所在的文件夹
    4. 然后点击右上角的build按钮，然后点击 build book 的下拉按钮
-* Batch
+* Windows 系统相关
+** Batch
   + Replacing a file into multiple folders/subdirectories
 
 #+BEGIN_SRC R
 replace C:\SourceFile.Txt C:\Multiple_SubFolders /s
 #+END_SRC
+** 增加新帐号并添加到管理员
+~net user testuser 123456 /add~
+
+~net localgroup administrators testuser /add~
 
 * 参考文献                                                           :ignore:
 要有文字，否则会出错
