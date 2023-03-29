@@ -934,10 +934,15 @@ installpkgs <- as.character(read.csv("c:/pkgs.csv")[,2])
     3. 解决
 
 #+BEGIN_SRC R ：eval false
-tlmgr repository add https://pi.kwarc.info/historic/systems/texlive/2022/tlnet-final
+tlmgr repository add https://mirrors.tuna.tsinghua.edu.cn/tex-historic-archive/systems/texlive/2022/tlnet-final
 tlmgr repository list
 tlmgr repository remove http://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet
-tlmgr option repository https://pi.kwarc.info/historic/systems/texlive/2022/tlnet-final
+tlmgr option repository https://mirrors.tuna.tsinghua.edu.cn/tex-historic-archive/systems/texlive/2022/tlnet-final
+
+or
+
+tinytex::tlmgr_repo('https://pi.kwarc.info/historic/systems/texlive/2022/tlnet-final')
+
 #+END_SRC
 
 #+RESULTS:
