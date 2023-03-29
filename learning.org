@@ -724,6 +724,7 @@ link-citations: true
    2. markdown 模式可以补全latex 代码
    3. python 模式， 直接运行 python 代码，把 R 代码利用 rpy2 写成 python 代码，直接运行
 ** TODO officedown
+* quarto
 * R
 ** latex listing 包中 R 代码 多个 # 出错
    1. org文件R代码修改 org.el 中 lstset 里面的 texcl= true
@@ -923,9 +924,27 @@ installpkgs <- as.character(read.csv("c:/pkgs.csv")[,2])
       3. 从旧版本拷贝 ddeclient.exe 到 bin/win32 文件夹
       4. xeCJK的更改，修改 default 17 .tex 中 为 usepackage{xeCJK}
       5. 利用 tlmgr 工具
+
 ** Beamer
 *** How do I change hyperlinks' color only?
     1. ~hyperref={colorlinks,allcolors=.,urlcolor=blue,bookmarksdepth=4}~
+** TinyTex
+    1. 安装包 =tlmgr install tcolorbox=
+    2. 出现错误: =tlmgr: Local TeX Live (2022) is older than remote repository (2023).=
+    3. 解决
+
+#+BEGIN_SRC R ：eval false
+tlmgr repository add https://pi.kwarc.info/historic/systems/texlive/2022/tlnet-final
+tlmgr repository list
+tlmgr repository remove http://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet
+tlmgr option repository https://pi.kwarc.info/historic/systems/texlive/2022/tlnet-final
+#+END_SRC
+
+#+RESULTS:
+
+    4. 重新安装 =tlmgr install tcolorbox=
+
+
 * JavaScript
 ** JavaScript 语言
 ** Node.js
