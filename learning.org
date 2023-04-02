@@ -815,7 +815,8 @@ installpkgs <- as.character(read.csv("c:/pkgs.csv")[,2])
        3.x. So what's the difference? Well, in Python 2.x range() produced a
        list, and xrange() returned an iterator - a sequence object.
 
-** Jupyter Notebook 支持
+** Jupyter Notebook
+*** Jupyter Notebook 支持
    1. 浏览器
    2. Spyder notebook 插件(界面与浏览器一样)
    3. Emacs EIN package
@@ -823,6 +824,13 @@ installpkgs <- as.character(read.csv("c:/pkgs.csv")[,2])
    5. Pycharm(必须把ipynb设置为trusted才能运行cell并预览，不支持 latex 自动补全)
 
 =conda install spyder-notebook=
+*** jupyter notebook 中 r kernel 支持
+    在 R 中运行
+
+#+BEGIN_SRC R :eval false
+install.packages('IRkernel')
+IRkernel::installspec()  # to register the kernel in the current R installation
+#+END_SRC
 
 ** 问题
    1. plt.show() 后不能回到 console 必须关闭后才能回来()
@@ -948,7 +956,6 @@ tinytex::tlmgr_repo('https://pi.kwarc.info/historic/systems/texlive/2022/tlnet-f
 #+RESULTS:
 
     4. 重新安装 =tlmgr install tcolorbox=
-
 
 * JavaScript
 ** JavaScript 语言
